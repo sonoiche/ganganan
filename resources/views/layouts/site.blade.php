@@ -44,8 +44,8 @@
                             <div class="collapse navbar-collapse" id="nav-main">
                                 <ul class="navbar-nav ms-auto">
                                     <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link">About us</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                                    {{-- <li class="nav-item"><a href="#" class="nav-link">About us</a></li>
+                                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li> --}}
                                     @if (!auth()->check())
                                     <li class="nav-item"><a href="{{ url('login') }}" class="nav-link">Login</a></li>
                                     @endif
