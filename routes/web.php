@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AssessmentController;
+use App\Http\Controllers\Admin\AssessmentTestController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VerifyController;
 use App\Http\Controllers\Client\ApplicantController;
 use App\Http\Controllers\Client\ApplicationController;
+use App\Http\Controllers\Client\AssessmentController as ClientAssessmentController;
 use App\Http\Controllers\Client\EmploymentController;
 use App\Http\Controllers\Client\IdentificationController;
 use App\Http\Controllers\Client\JobController;
@@ -31,6 +33,7 @@ Route::prefix('admin')->middleware(['auth:web'])->group( function() {
     Route::resource('users', UserController::class);
     Route::resource('skills', SkillController::class);
     Route::resource('assessments', AssessmentController::class);
+    Route::resource('assessment-tests', AssessmentTestController::class);
 });
 
 Route::prefix('client')->middleware(['auth:web','inactive-user'])->group( function() {
@@ -41,4 +44,5 @@ Route::prefix('client')->middleware(['auth:web','inactive-user'])->group( functi
     Route::resource('skills', ClientSkillController::class);
     Route::resource('applications', ApplicationController::class);
     Route::resource('applicants', ApplicantController::class);
+    Route::resource('assessments', ClientAssessmentController::class);
 });

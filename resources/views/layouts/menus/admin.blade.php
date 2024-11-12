@@ -98,11 +98,11 @@
                 <div class="text-truncate" data-i18n="Skills">Skills</div>
             </a>
         </li>
-        {{-- <li class="menu-item {{ checkUrl(['assessments']) }}">
+        <li class="menu-item {{ checkUrl(['assessments']) }}">
             <a href="{{ url('admin/assessments') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-list-check"></i>
                 <div class="text-truncate" data-i18n="Assessment Tests">Assessment Tests</div>
             </a>
-        </li> --}}
+        </li>
     </ul>
 </aside>

@@ -24,39 +24,42 @@ class ApplicantController extends Controller
             ->where('date_until', '>', $today)
             ->get();
 
-        $matchedApplicants = collect();
-
-        foreach ($jobs as $job) {
-            $jobSkills = $job->array_skills;
-            $applicants = User::where('role', 'User')
-                ->whereIn('id', $applicant_ids)
-                ->where('city', 'LIKE', '%'.$job->location.'%')
-                ->where('status', 'Active')
-                ->get()->map(function ($applicant) use ($jobSkills) {
-                $applicantSkills = $applicant->user_skill->array_skills ?? [];
-                $matchedCount = count(array_intersect($jobSkills, $applicantSkills));
-                return [
-                    'applicant' => $applicant,
-                    'matched_skills' => $matchedCount,
-                ];
-            });
-
-            foreach ($applicants as $applicant) {
-                if ($applicant['matched_skills'] > 0) {
-                    $matchedApplicants[] = $applicant;
-                }
-            }
-        }
-
-        $matchedApplicants = $matchedApplicants->unique(function ($item) {
-            return $item['applicant']->id;
-        });
-        
-        $matchedApplicants = $matchedApplicants->sortByDesc('matched_skills');
-
+        $matchedApplicants  = collect();
         $data['applicants'] = [];
-        foreach ($matchedApplicants as  $matchedApplicant) {
-            $data['applicants'][] = $matchedApplicant['applicant'];
+
+        if(count($jobs)) {
+            foreach ($jobs as $job) {
+                $jobSkills = $job->array_skills;
+                $applicants = User::where('role', 'User')
+                    ->whereIn('id', $applicant_ids)
+                    ->where('city', 'LIKE', '%'.$job->location.'%')
+                    ->where('status', 'Active')
+                    ->get()
+                    ->map(function ($applicant) use ($jobSkills) {
+                        $applicantSkills = $applicant->user_skill->array_skills ?? [];
+                        $matchedCount = count(array_intersect($jobSkills, $applicantSkills));
+                        return [
+                            'applicant' => $applicant,
+                            'matched_skills' => $matchedCount,
+                        ];
+                    });
+
+                    foreach ($applicants as $applicant) {
+                        if ($applicant['matched_skills'] > 0) {
+                            $matchedApplicants[] = $applicant;
+                        }
+                    }
+            }
+
+            $matchedApplicants = $matchedApplicants->unique(function ($item) {
+                return $item['applicant']->id;
+            });
+            
+            $matchedApplicants = $matchedApplicants->sortByDesc('matched_skills');
+
+            foreach ($matchedApplicants as  $matchedApplicant) {
+                $data['applicants'][] = $matchedApplicant['applicant'];
+            }
         }
 
         return view('client.applicants.index', $data);

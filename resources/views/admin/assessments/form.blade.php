@@ -26,8 +26,8 @@
             <label for="name" class="form-label">Status</label>
             <select name="status" id="status" class="form-select">
                 <option value="">Select Status</option>
-                <option value="Published">Published</option>
-                <option value="Draft">Draft</option>
+                <option value="Published" {{ (isset($assessment->status) && $assessment->status == 'Published') ? 'selected' : '' }}>Published</option>
+                <option value="Draft" {{ (isset($assessment->status) && $assessment->status == 'Draft') ? 'selected' : '' }}>Draft</option>
             </select>
         </div>
     </div>
