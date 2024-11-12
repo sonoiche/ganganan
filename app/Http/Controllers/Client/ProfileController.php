@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -56,7 +57,39 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request, string $id)
     {
-        //
+        $user = User::find($id);
+        $user->fname            = $request['fname'];
+        $user->mname            = $request['mname'];
+        $user->lname            = $request['lname'];
+        $user->email            = $request['email'];
+        $user->contact_number   = $request['contact_number'];
+
+        if(isset($request['password'])){
+            $user->password = bcrypt($request['password']);
+        }
+
+        $user->address          = $request['address'];
+        $user->city             = $request['city'];
+        $user->zip_code         = $request['zip_code'];
+        $user->user_type        = $request['user_type'];
+
+        if(isset($request['photo']) && $request->has('photo')) {
+            $file  = $request->file('photo');
+            $photo = time().'.'.$file->getClientOriginalExtension();
+
+            $path = Storage::disk('s3')->putFileAs(
+                'ganganan/uploads/users',
+                $file,
+                $photo,
+                'public'
+            );
+            
+            $user->photo = Storage::disk('s3')->url($path);
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Client information has been updated.');
     }
 
     /**

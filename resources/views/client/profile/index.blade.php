@@ -107,6 +107,7 @@
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
                         </div>
+                        <input type="hidden" name="id" value="{{ $user->id }}" />
                     </form>
                 </div>
             </div>

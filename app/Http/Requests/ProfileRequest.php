@@ -25,7 +25,7 @@ class ProfileRequest extends FormRequest
         return [
             'fname'             => 'required',
             'lname'             => 'required',
-            'email'             => 'reqiured|email|unique:users,email,' . (($id) ? $id : null) . ',id',
+            'email'             => 'required|email|unique:users,email,' . (($id) ? $id : null) . ',id',
             'contact_number'    => 'required',
             'address'           => 'required',
             'city'              => 'required',

@@ -39,9 +39,9 @@
                             @enderror
                         </div>
                         <div class="d-flex justify-content-end">
-                            <a style="margin-bottom: 10px" href="{{ route('password.request') }}">
+                            {{-- <a style="margin-bottom: 10px" href="{{ route('password.request') }}">
                                 {{ __('Forgot Your Password?') }}
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="d-grid gap-2">
                             <button class="btn btn-primary btn-block">Login</button>

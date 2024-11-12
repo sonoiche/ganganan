@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\JobOpening;
 use Illuminate\Http\Request;
 use App\Models\Client\UserSkill;
+use Illuminate\Support\Facades\DB;
 
 class SiteController extends Controller
 {
@@ -35,24 +36,28 @@ class SiteController extends Controller
         $today          = now()->format('Y-m-d');
         $applicant_ids  = UserSkill::pluck('user_id');
         $applicants = User::where('role', 'User')
+            ->with('user_skill')
             ->where('status', 'Active')
-            ->whereIn('id', $applicant_ids);
+            ->whereIn('id', $applicant_ids)
+            ->get();
 
         $matchedJobs    = collect();
-
+        
         foreach ($applicants as $applicant) {
             $applicantSkills = $applicant->user_skill->array_skills ?? [];
 
             $jobs = JobOpening::where('status', 'Publish')
                 ->where('location', 'LIKE', '%'.auth()->user()->city.'%')
-                ->where('date_until', '>', $today)->map(function ($job) use ($applicantSkills) {
-                $jobSkills      = $job->array_skills;
-                $matchedCount   = count(array_intersect($applicantSkills, $jobSkills));
-
-                return [
-                    'job'               => $job,
-                    'matched_skills'    => $matchedCount,
-                ];
+                ->where('date_until', '>', $today)
+                ->get()
+                ->map(function ($job) use ($applicantSkills) {
+                    $jobSkills      = $job->array_skills;
+                    $matchedCount   = count(array_intersect($applicantSkills, $jobSkills));
+                    
+                    return [
+                        'job'               => $job,
+                        'matched_skills'    => $matchedCount,
+                    ];
             });
 
             foreach ($jobs as $job) {
@@ -74,7 +79,7 @@ class SiteController extends Controller
         foreach ($matchedJobs as  $matchedJob) {
             $data['jobs'][] = $matchedJob['job'];
         }
-
+        
         return view('site.jobs.index', $data);
     }
 }
