@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-12 mx-auto">
-                <h4>Recommended Jobs for You</h4>
+                <h4>{{ (auth()->check()) ? 'Recommended Jobs for You' : 'Available Jobs for You' }}</h4>
             </div>
         </div>
         <div class="row">
