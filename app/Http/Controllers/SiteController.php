@@ -47,7 +47,9 @@ class SiteController extends Controller
             $applicantSkills = $applicant->user_skill->array_skills ?? [];
 
             $jobs = JobOpening::where('status', 'Publish')
-                ->where('location', 'LIKE', '%'.auth()->user()->city.'%')
+                ->when(auth()->check(), function($query) {
+                    return $query->where('location', 'LIKE', '%'.auth()->user()->city.'%');
+                })
                 ->where('date_until', '>', $today)
                 ->get()
                 ->map(function ($job) use ($applicantSkills) {
