@@ -6,76 +6,13 @@
         <div class="col-12 col-xxl-8 order-2 order-md-3 order-xxl-2 mb-6">
             <div class="card">
                 <div class="row row-bordered g-0">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="card-title mb-0">
                                 <h5 class="m-0 me-2">Total Revenue</h5>
                             </div>
-                            <div class="dropdown">
-                                <button class="btn p-0" type="button" id="totalRevenue" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bx bx-dots-vertical-rounded bx-lg text-muted"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalRevenue">
-                                    <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                </div>
-                            </div>
                         </div>
                         <div id="totalRevenueChart" class="px-3"></div>
-                    </div>
-                    <div class="col-lg-4 d-flex align-items-center">
-                        <div class="card-body px-xl-9">
-                            <div class="text-center mb-6">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-primary">
-                                        <script>
-                                            document.write(new Date().getFullYear() - 1);
-                                        </script>
-                                    </button>
-                                    <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="visually-hidden">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:void(0);">2021</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0);">2020</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0);">2019</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div id="growthChart"></div>
-                            <div class="text-center fw-medium my-6">62% Company Growth</div>
-
-                            <div class="d-flex gap-3 justify-content-between">
-                                <div class="d-flex">
-                                    <div class="avatar me-2">
-                                        <span class="avatar-initial rounded-2 bg-label-primary"><i class="bx bx-dollar bx-lg text-primary"></i></span>
-                                    </div>
-                                    <div class="d-flex flex-column">
-                                        <small>
-                                            <script>
-                                                document.write(new Date().getFullYear() - 1);
-                                            </script>
-                                        </small>
-                                        <h6 class="mb-0">Php32.5k</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex">
-                                    <div class="avatar me-2">
-                                        <span class="avatar-initial rounded-2 bg-label-info"><i class="bx bx-wallet bx-lg text-info"></i></span>
-                                    </div>
-                                    <div class="d-flex flex-column">
-                                        <small>
-                                            <script>
-                                                document.write(new Date().getFullYear() - 2);
-                                            </script>
-                                        </small>
-                                        <h6 class="mb-0">Php41.2k</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -90,19 +27,9 @@
                                 <div class="avatar flex-shrink-0">
                                     <img src="{{ url('assets/img/icons/unicons/chart-success.png') }}" alt="chart success" class="rounded" />
                                 </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded text-muted"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                    </div>
-                                </div>
                             </div>
                             <p class="mb-1">Profit</p>
-                            <h4 class="card-title mb-3">Php12,628</h4>
-                            <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
+                            <h4 class="card-title mb-3">Php {{ $monthlyProfit }}</h4>
                         </div>
                     </div>
                 </div>
@@ -113,19 +40,9 @@
                                 <div class="avatar flex-shrink-0">
                                     <img src="{{ url('assets/img/icons/unicons/wallet-info.png') }}" alt="wallet info" class="rounded" />
                                 </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded text-muted"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                    </div>
-                                </div>
                             </div>
-                            <p class="mb-1">Sales</p>
-                            <h4 class="card-title mb-3">Php4,679</h4>
-                            <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
+                            <p class="mb-1">Users</p>
+                            <h4 class="card-title mb-3">{{ $applicants }}</h4>
                         </div>
                     </div>
                 </div>
@@ -136,19 +53,9 @@
                                 <div class="avatar flex-shrink-0">
                                     <img src="{{ url('assets/img/icons/unicons/paypal.png') }}" alt="paypal" class="rounded" />
                                 </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded text-muted"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                    </div>
-                                </div>
                             </div>
-                            <p class="mb-1">Payments</p>
-                            <h4 class="card-title mb-3">Php2,456</h4>
-                            <small class="text-danger fw-medium"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                            <p class="mb-1">Applications</p>
+                            <h4 class="card-title mb-3">{{ $applications }}</h4>
                         </div>
                     </div>
                 </div>
@@ -159,19 +66,9 @@
                                 <div class="avatar flex-shrink-0">
                                     <img src="{{ url('assets/img/icons/unicons/cc-primary.png') }}" alt="Credit Card" class="rounded" />
                                 </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded text-muted"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                    </div>
-                                </div>
                             </div>
-                            <p class="mb-1">Transactions</p>
-                            <h4 class="card-title mb-3">Php14,857</h4>
-                            <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                            <p class="mb-1">Hired</p>
+                            <h4 class="card-title mb-3">{{ $hired }}</h4>
                         </div>
                     </div>
                 </div>
@@ -180,3 +77,250 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+$(document).ready(function () {
+    let cardColor, headingColor, legendColor, labelColor, shadeColor, borderColor;
+
+    cardColor = config.colors.cardColor;
+
+    const totalRevenueChartEl = document.querySelector("#totalRevenueChart"),
+    totalRevenueChartOptions = {
+        series: [
+            {
+                name: new Date().getFullYear() - 1,
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            },
+            {
+                name: new Date().getFullYear(),
+                data: <?php echo json_encode($chart[1]); ?>,
+            },
+        ],
+        chart: {
+            height: 317,
+            stacked: true,
+            type: "bar",
+            toolbar: { show: false },
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: "30%",
+                borderRadius: 8,
+                startingShape: "rounded",
+                endingShape: "rounded",
+            },
+        },
+        colors: [config.colors.primary, config.colors.info],
+        dataLabels: {
+            enabled: false,
+        },
+        stroke: {
+            curve: "smooth",
+            width: 6,
+            lineCap: "round",
+            colors: [cardColor],
+        },
+        legend: {
+            show: true,
+            horizontalAlign: "left",
+            position: "top",
+            markers: {
+                height: 8,
+                width: 8,
+                radius: 12,
+                offsetX: -5,
+            },
+            fontSize: "13px",
+            fontFamily: "Public Sans",
+            fontWeight: 400,
+            labels: {
+                colors: legendColor,
+                useSeriesColors: false,
+            },
+            itemMargin: {
+                horizontal: 10,
+            },
+        },
+        grid: {
+            strokeDashArray: 7,
+            borderColor: borderColor,
+            padding: {
+                top: 0,
+                bottom: -8,
+                left: 20,
+                right: 20,
+            },
+        },
+        fill: {
+            opacity: [1, 1],
+        },
+        xaxis: {
+            categories: <?php echo json_encode($chart[0]); ?>,
+            labels: {
+                style: {
+                    fontSize: "13px",
+                    fontFamily: "Public Sans",
+                    colors: labelColor,
+                },
+            },
+            axisTicks: {
+                show: false,
+            },
+            axisBorder: {
+                show: false,
+            },
+        },
+        yaxis: {
+            labels: {
+                style: {
+                    fontSize: "13px",
+                    fontFamily: "Public Sans",
+                    colors: labelColor,
+                },
+            },
+        },
+        responsive: [
+            {
+                breakpoint: 1700,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 10,
+                            columnWidth: "35%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 1440,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 12,
+                            columnWidth: "43%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 1300,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 11,
+                            columnWidth: "45%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 1200,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 11,
+                            columnWidth: "37%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 1040,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 12,
+                            columnWidth: "45%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 991,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 12,
+                            columnWidth: "33%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 768,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 11,
+                            columnWidth: "28%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 640,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 11,
+                            columnWidth: "30%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 576,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 10,
+                            columnWidth: "38%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 440,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 10,
+                            columnWidth: "50%",
+                        },
+                    },
+                },
+            },
+            {
+                breakpoint: 380,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 9,
+                            columnWidth: "60%",
+                        },
+                    },
+                },
+            },
+        ],
+        states: {
+            hover: {
+                filter: {
+                    type: "none",
+                },
+            },
+            active: {
+                filter: {
+                    type: "none",
+                },
+            },
+        },
+    };
+    if (typeof totalRevenueChartEl !== undefined && totalRevenueChartEl !== null) {
+        const totalRevenueChart = new ApexCharts(totalRevenueChartEl, totalRevenueChartOptions);
+        totalRevenueChart.render();
+    }
+});
+</script>
+@endpush
