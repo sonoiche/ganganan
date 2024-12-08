@@ -58,7 +58,7 @@
                                                 document.write(new Date().getFullYear() - 1);
                                             </script>
                                         </small>
-                                        <h6 class="mb-0">$32.5k</h6>
+                                        <h6 class="mb-0">Php32.5k</h6>
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -71,7 +71,7 @@
                                                 document.write(new Date().getFullYear() - 2);
                                             </script>
                                         </small>
-                                        <h6 class="mb-0">$41.2k</h6>
+                                        <h6 class="mb-0">Php41.2k</h6>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                             <p class="mb-1">Profit</p>
-                            <h4 class="card-title mb-3">$12,628</h4>
+                            <h4 class="card-title mb-3">Php12,628</h4>
                             <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                             <p class="mb-1">Sales</p>
-                            <h4 class="card-title mb-3">$4,679</h4>
+                            <h4 class="card-title mb-3">Php4,679</h4>
                             <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                             <p class="mb-1">Payments</p>
-                            <h4 class="card-title mb-3">$2,456</h4>
+                            <h4 class="card-title mb-3">Php2,456</h4>
                             <small class="text-danger fw-medium"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                                 </div>
                             </div>
                             <p class="mb-1">Transactions</p>
-                            <h4 class="card-title mb-3">$14,857</h4>
+                            <h4 class="card-title mb-3">Php14,857</h4>
                             <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
                         </div>
                     </div>

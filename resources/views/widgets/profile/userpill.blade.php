@@ -22,5 +22,8 @@
         <li class="nav-item">
             <a class="nav-link {{ navPill(['skills']) }}" href="{{ url('client/skills') }}"><i class="bx bx-star bx-sm me-1_5"></i>Skills</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ navPill(['subscription']) }}" href="{{ url('client/subscription') }}"><i class="bx bx-money bx-sm me-1_5"></i>Subscription</a>
+        </li>
     </ul>
 </div>

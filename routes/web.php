@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPaymentController;
+use App\Http\Controllers\Admin\ApplicantChartController;
 use App\Http\Controllers\Admin\AssessmentController;
 use App\Http\Controllers\Admin\AssessmentTestController;
+use App\Http\Controllers\Admin\ProfitChartController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VerifyController;
@@ -11,8 +15,10 @@ use App\Http\Controllers\Client\AssessmentController as ClientAssessmentControll
 use App\Http\Controllers\Client\EmploymentController;
 use App\Http\Controllers\Client\IdentificationController;
 use App\Http\Controllers\Client\JobController;
+use App\Http\Controllers\Client\PaymentController;
 use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\Client\SkillController as ClientSkillController;
+use App\Http\Controllers\Client\SubscriptionController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +40,11 @@ Route::prefix('admin')->middleware(['auth:web'])->group( function() {
     Route::resource('skills', SkillController::class);
     Route::resource('assessments', AssessmentController::class);
     Route::resource('assessment-tests', AssessmentTestController::class);
+    Route::resource('payments', AdminPaymentController::class);
+
+    Route::resource('reports/profit-chart', ProfitChartController::class);
+    Route::resource('reports/payments', ReportController::class);
+    Route::resource('reports/applicants', ApplicantChartController::class);
 });
 
 Route::prefix('client')->middleware(['auth:web','inactive-user'])->group( function() {
@@ -45,4 +56,9 @@ Route::prefix('client')->middleware(['auth:web','inactive-user'])->group( functi
     Route::resource('applications', ApplicationController::class);
     Route::resource('applicants', ApplicantController::class);
     Route::resource('assessments', ClientAssessmentController::class);
+});
+
+Route::prefix('client')->middleware(['auth:web'])->group( function() {
+    Route::resource('subscription', SubscriptionController::class);
+    Route::resource('payments', PaymentController::class);
 });

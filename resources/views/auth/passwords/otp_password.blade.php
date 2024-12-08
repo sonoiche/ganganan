@@ -7,7 +7,7 @@
                 <h1 class="page-heading">OTP Password</h1>
             </div>
             <div class="col-md-6 col-sm-6">
-                <div class="breadCrumb"><a href="#">Home</a> / <span>OTP Password</span></div>
+                <div class="breadCrumb"><a href="#">Pangunahing Pahina</a> / <span>OTP Password</span></div>
             </div>
         </div>
     </div>

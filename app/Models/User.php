@@ -4,11 +4,12 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\Client\UserSkill;
 use Carbon\Carbon;
+use App\Models\Client\UserSkill;
+use App\Models\Client\Subscription;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -119,5 +120,11 @@ class User extends Authenticatable
     {
         $skill = Skill::find($id);
         return $skill->name;
+    }
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class, 'user_id')
+            ->latestOfMany();
     }
 }

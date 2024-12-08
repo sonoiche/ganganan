@@ -7,7 +7,7 @@
                 <h1 class="page-heading">Login</h1>
             </div>
             <div class="col-md-6 col-sm-6">
-                <div class="breadCrumb"><a href="#">Home</a> / <span>Job Name</span></div>
+                <div class="breadCrumb"><a href="#">Pangunahing Pahina</a> / <span>Job Name</span></div>
             </div>
         </div>
     </div>

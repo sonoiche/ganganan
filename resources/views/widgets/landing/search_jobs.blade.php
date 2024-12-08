@@ -1,12 +1,13 @@
 <!-- Search start -->
 <div class="searchwrap">
-    <div class="container">
-        <h3>One million success stories. <span>Start yours today.</span></h3>
-        <p>Find Jobs, Employment & Career Opportunities</p>
+    <div class="bg-yellow"></div>
+    <div class="container" style="position: relative">
+        <h3>Isang milyong kwento ng tagumpay. <span>Simulan mo ang sa'yo ngayon.</span></h3>
+        <p>Maghanap ng Trabaho, Pagkakakitaan, at Mga Oportunidad sa Karera</p>
         <div class="searchbar">
             <div class="row">
                 <div class="col-md-10">
-                    <input type="text" class="form-control" placeholder="Enter Job title" />
+                    <input type="text" class="form-control" placeholder="Ilagay ang Pamagat ng Trabaho" />
                 </div>
                 {{-- <div class="col-md-3">
                     <select class="form-control">
@@ -23,14 +24,14 @@
                     </select>
                 </div> --}}
                 <div class="col-md-2">
-                    <input type="submit" class="btn" value="Search Job" />
+                    <input type="submit" class="btn" value="Maghanap" />
                 </div>
             </div>
         </div>
         <!-- button start -->
         <div class="getstarted">
-            <a href="#."><i class="fa fa-briefcase" aria-hidden="true"></i> Post Your Job</a>
-            <a href="#."><i class="fa fa-user-o" aria-hidden="true"></i> Search Jobs</a>
+            <a href="{{ url('client/jobs/create') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> I-post ang iyong Trabaho</a>
+            <a href="{{ url('jobs') }}"><i class="fa fa-user-o" aria-hidden="true"></i> Maghanap ng Trabaho</a>
         </div>
         <!-- button end -->
     </div>
