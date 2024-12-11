@@ -2,8 +2,9 @@
 
 namespace App\Models\Client;
 
-use App\Models\JobOpening;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\JobOpening;
 use Illuminate\Database\Eloquent\Model;
 
 class JobApplication extends Model
