@@ -23,7 +23,7 @@
                         <tr class="odd">
                             <td class="text-center">{{ $key+1 }}</td>
                             <td>{{ $application->created_date }}</td>
-                            <td>{{ $application->job_title }}</td>
+                            <td>{{ $application->job->job_title ?? '' }}</td>
                             <td>{{ $application->employer->fullname ?? '' }}</td>
                             <td class="text-center">{{ $application->status }}</td>
                             <td class="text-center">
