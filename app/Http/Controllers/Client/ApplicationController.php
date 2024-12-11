@@ -14,7 +14,7 @@ class ApplicationController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
-        $data['applications'] = JobApplication::where('user_id', $user_id)->latest()->get();
+        return $data['applications'] = JobApplication::where('user_id', $user_id)->latest()->get();
         return view('client.applications.index', $data);
     }
 
