@@ -2,6 +2,7 @@
 
 namespace App\Models\Client;
 
+use App\Models\JobOpening;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,5 +20,10 @@ class JobApplication extends Model
         }
 
         return '';
+    }
+
+    public function job()
+    {
+        return $this->belongsTo(JobOpening::class,'job_id');
     }
 }
