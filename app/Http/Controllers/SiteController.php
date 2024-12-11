@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client\JobApplication;
 use App\Models\User;
 use App\Models\JobOpening;
 use Illuminate\Http\Request;
@@ -83,5 +84,19 @@ class SiteController extends Controller
         }
         
         return view('site.jobs.index', $data);
+    }
+
+    public function show($id)
+    {
+        $job = JobOpening::find($id);
+
+        $application = new JobApplication();
+        $application->user_id = auth()->user()->id;
+        $application->employer_id = $job->user_id;
+        $application->job_id = $job->id;
+        $application->status = 'Applied';
+        $application->save();
+
+        return redirect()->to('client/applications');
     }
 }

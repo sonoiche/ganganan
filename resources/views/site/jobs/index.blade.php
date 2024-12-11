@@ -24,7 +24,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="col-md-4 col-sm-4">
-                                <div class="listbtn"><a href="#.">Apply Now</a></div>
+                                <div class="listbtn"><a href="{{ url('jobs', $job->id) }}">Apply Now</a></div>
                             </div>
                         </div>
                         <p>{{ $job->description }}</p>

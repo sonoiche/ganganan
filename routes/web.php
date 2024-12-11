@@ -33,6 +33,7 @@ Route::get('otp-password', [SiteController::class, 'otp']);
 Route::post('otp-password', [SiteController::class, 'store_otp']);
 
 Route::get('jobs', [SiteController::class, 'jobs']);
+Route::get('jobs/{id}', [SiteController::class, 'apply']);
 
 Route::prefix('admin')->middleware(['auth:web'])->group( function() {
     Route::resource('user-verify', VerifyController::class);
