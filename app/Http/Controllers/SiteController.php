@@ -86,7 +86,7 @@ class SiteController extends Controller
         return view('site.jobs.index', $data);
     }
 
-    public function show($id)
+    public function apply($id)
     {
         $job = JobOpening::find($id);
 
