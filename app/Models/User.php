@@ -109,6 +109,8 @@ class User extends Authenticatable
         if($address) {
             return $address . ' ' . $city . ' ' . $zip_code;
         }
+
+        return 'None';
     }
 
     public function user_skill()

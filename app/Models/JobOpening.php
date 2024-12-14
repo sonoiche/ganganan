@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Client\JobApplication;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -55,5 +56,10 @@ class JobOpening extends Model
     public function employer()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(JobApplication::class, 'job_id');
     }
 }

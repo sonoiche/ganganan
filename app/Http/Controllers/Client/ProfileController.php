@@ -64,7 +64,7 @@ class ProfileController extends Controller
         $user->email            = $request['email'];
         $user->contact_number   = $request['contact_number'];
 
-        if(isset($request['password'])){
+        if(isset($request['password']) && $request['password'] !== ''){
             $user->password = bcrypt($request['password']);
         }
 

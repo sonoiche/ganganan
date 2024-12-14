@@ -22,6 +22,7 @@
                             <th class="sorting">Job Order</th>
                             <th class="sorting">Title</th>
                             <th class="sorting text-center">Needed</th>
+                            <th class="sorting text-center">Applied</th>
                             <th class="sorting">Salary</th>
                             <th class="sorting text-center">Status</th>
                             <th class="sorting_disabled text-center">Actions</th>
@@ -35,6 +36,8 @@
                             <td>{{ $job->job_order_number }}</td>
                             <td>{{ $job->job_title }}</td>
                             <td class="text-center">{{ $job->workers_need }}</td>
+                            <td class="text-center">{!! (isset($job->applications) && count($job->applications) > 0) ? 
+                            '<a href="'.url('client/jobs/job-applied').'?job_id='.$job->id.'"><strong>' .count($job->applications). '</strong></a>' : 0 !!}</td>
                             <td>{{ 'P'.$job->salary }}</td>
                             <td class="text-center">{{ $job->status }}</td>
                             <td class="text-center">

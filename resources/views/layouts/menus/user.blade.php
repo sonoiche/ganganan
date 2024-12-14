@@ -111,6 +111,12 @@
                 <div class="text-truncate" data-i18n="Applicants">Applicants</div>
             </a>
         </li>
+        <li class="menu-item {{ checkUrl(['hired']) }}">
+            <a href="{{ url('client/hired') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-group"></i>
+                <div class="text-truncate" data-i18n="Hired Applicants">Hired Applicants</div>
+            </a>
+        </li>
         <li class="menu-item {{ checkUrl(['assessments']) }}">
             <a href="{{ url('client/assessments') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-file"></i>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client\JobApplication;
 use App\Models\Client\UserSkill;
 use App\Models\JobOpening;
 use App\Models\User;
@@ -68,9 +69,12 @@ class ApplicantController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $job_id         = $request['job_id'];
+        $applicant_ids  = JobApplication::where('job_id', $job_id)->pluck('user_id');
+        $data['applicants'] = User::whereIn('id', $applicant_ids)->with(['user_skill'])->get();
+        return view('client.applicants.create', $data);
     }
 
     /**
@@ -86,7 +90,8 @@ class ApplicantController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data['applicant'] = User::find($id);
+        return view('client.applicants.show', $data);
     }
 
     /**

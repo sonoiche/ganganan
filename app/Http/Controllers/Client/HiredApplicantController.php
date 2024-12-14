@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Client;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Client\JobApplication;
+use Illuminate\Http\Request;
 
-class ApplicationController extends Controller
+class HiredApplicantController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user_id = auth()->user()->id;
-        $data['applications'] = JobApplication::with(['user','job'])->where('user_id', $user_id)->latest()->get();
-        return view('client.applications.index', $data);
+        $data['applications'] = JobApplication::where('employer_id', auth()->user()->id)->where('status', 'Hired')->latest()->get();
+        return view('client.hired.index', $data);
     }
 
     /**
@@ -37,18 +36,9 @@ class ApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id, Request $request)
+    public function show(string $id)
     {
-        $job_id = $request['job_id'];
-        $application = JobApplication::where('user_id', $id)
-            ->where('job_id', $job_id)
-            ->where('status', 'Applied')
-            ->first();
-
-        $application->status = 'Hired';
-        $application->save();
-
-        return redirect()->to('client/hired');
+        //
     }
 
     /**

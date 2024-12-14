@@ -13,6 +13,7 @@ use App\Http\Controllers\Client\ApplicantController;
 use App\Http\Controllers\Client\ApplicationController;
 use App\Http\Controllers\Client\AssessmentController as ClientAssessmentController;
 use App\Http\Controllers\Client\EmploymentController;
+use App\Http\Controllers\Client\HiredApplicantController;
 use App\Http\Controllers\Client\IdentificationController;
 use App\Http\Controllers\Client\JobController;
 use App\Http\Controllers\Client\PaymentController;
@@ -49,6 +50,7 @@ Route::prefix('admin')->middleware(['auth:web'])->group( function() {
 });
 
 Route::prefix('client')->middleware(['auth:web','inactive-user'])->group( function() {
+    Route::get('jobs/job-applied', [ApplicantController::class, 'create']);
     Route::resource('jobs', JobController::class);
     Route::resource('profile', ProfileController::class);
     Route::resource('identifications', IdentificationController::class);
@@ -57,6 +59,7 @@ Route::prefix('client')->middleware(['auth:web','inactive-user'])->group( functi
     Route::resource('applications', ApplicationController::class);
     Route::resource('applicants', ApplicantController::class);
     Route::resource('assessments', ClientAssessmentController::class);
+    Route::resource('hired', HiredApplicantController::class);
 });
 
 Route::prefix('client')->middleware(['auth:web'])->group( function() {
