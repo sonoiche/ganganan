@@ -30,10 +30,13 @@ class ApplicantController extends Controller
 
         if(count($jobs)) {
             foreach ($jobs as $job) {
-                $jobSkills = $job->array_skills;
+                $location   = $job->location; 
+                $jobSkills  = $job->array_skills;
                 $applicants = User::where('role', 'User')
                     ->whereIn('id', $applicant_ids)
-                    ->where('city', 'LIKE', '%'.$job->location.'%')
+                    ->when($location, function ($query, $location) {
+                        return $query->where('city', 'LIKE', '%'.$location.'%');
+                    })
                     ->where('status', 'Active')
                     ->get()
                     ->map(function ($applicant) use ($jobSkills) {
