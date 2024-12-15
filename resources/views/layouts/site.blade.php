@@ -89,7 +89,7 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item" style="margin: 3px 0">
-                                                <a href="#" class="nav-link">
+                                                <a href="{{ url('client/profile') }}" class="nav-link">
                                                     <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
                                                     Edit Profile
                                                 </a>
