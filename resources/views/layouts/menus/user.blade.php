@@ -105,12 +105,12 @@
                 <div class="text-truncate" data-i18n="Browse Jobs">Browse Jobs</div>
             </a>
         </li>
-        <li class="menu-item {{ checkUrl(['applicants']) }}">
+        {{-- <li class="menu-item {{ checkUrl(['applicants']) }}">
             <a href="{{ url('client/applicants') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-group"></i>
                 <div class="text-truncate" data-i18n="Applicants">Applicants</div>
             </a>
-        </li>
+        </li> --}}
         <li class="menu-item {{ checkUrl(['hired']) }}">
             <a href="{{ url('client/hired') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-group"></i>
