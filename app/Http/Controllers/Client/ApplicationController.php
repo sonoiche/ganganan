@@ -72,6 +72,9 @@ class ApplicationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $application = JobApplication::find($id);
+        $application->delete();
+
+        return response()->json(200);
     }
 }
