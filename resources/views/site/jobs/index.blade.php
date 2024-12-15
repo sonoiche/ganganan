@@ -24,7 +24,14 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="col-md-4 col-sm-4">
-                                <div class="listbtn"><a href="{{ url('jobs', $job->id) }}">Apply Now</a></div>
+                                @if (auth()->check() && !auth()->user()->is_hired)
+                                    <div class="listbtn"><a href="{{ url('jobs', $job->id) }}">Apply Now</a></div>
+                                @elseif(auth()->check() && auth()->user()->is_hired)
+                                    <div class="listbtn">Can't apply to this job, you are already Hired.</div>
+                                @else
+                                    <div class="listbtn"><a href="{{ url('jobs', $job->id) }}">Apply Now</a></div>
+                                @endif
+                                
                             </div>
                         </div>
                         <p>{{ $job->description }}</p>
