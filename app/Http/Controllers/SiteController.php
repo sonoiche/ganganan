@@ -49,7 +49,9 @@ class SiteController extends Controller
 
             $jobs = JobOpening::where('status', 'Publish')
                 ->when(auth()->check(), function($query) {
-                    return $query->where('location', 'LIKE', '%'.auth()->user()->city.'%');
+                    if(auth()->user()->city != '') {
+                        return $query->where('location', 'LIKE', '%'.auth()->user()->city.'%');
+                    }
                 })
                 ->where('date_until', '>', $today)
                 ->get()
