@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Client\JobApplication;
 use Carbon\Carbon;
 use App\Models\Client\UserSkill;
 use App\Models\Client\Subscription;
@@ -46,7 +47,7 @@ class User extends Authenticatable
         ];
     }
 
-    protected $appends = ['fullname','display_photo','role_menu','created_date_time', 'created_date','complete_address'];
+    protected $appends = ['fullname','display_photo','role_menu','created_date_time', 'created_date','complete_address','is_hired'];
 
     public function getFullnameAttribute()
     {
@@ -113,6 +114,12 @@ class User extends Authenticatable
         return 'None';
     }
 
+    public function getIsHiredAttribute()
+    {
+        $applications = $this->application()->where('status', 'Hired')->count();
+        return ($applications != 0);
+    }
+
     public function user_skill()
     {
         return $this->hasOne(UserSkill::class, 'user_id');
@@ -128,5 +135,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Subscription::class, 'user_id')
             ->latestOfMany();
+    }
+
+    public function application()
+    {
+        return $this->hasMany(JobApplication::class, 'user_id');
     }
 }

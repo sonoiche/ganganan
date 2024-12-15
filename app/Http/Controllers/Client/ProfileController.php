@@ -16,7 +16,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user_id        = auth()->user()->id;
-        $data['user']   = User::find($user_id);
+        return $data['user']   = User::find($user_id);
         return view('client.profile.index', $data);
     }
 
