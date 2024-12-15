@@ -50,7 +50,9 @@
                         </li>
                     </ul>
                     <div class="d-flex align-items-center justify-content-center" style="margin-top: 20px">
-                        @if (!$applicant->is_hired)
+                        @if (!$applicant->is_hired && !isset($_GET['job_id']))
+                            <a href="{{ url('client/applications', $applicant->id) }}" class="btn btn-primary d-flex align-items-center me-4"><i class="bx bx-user-check bx-sm me-2"></i>Hire Applicant</a>
+                        @elseif(!$applicant->is_hired && isset($_GET['job_id']))
                             <a href="{{ url('client/applications', $applicant->id) }}?job_id={{ $_GET['job_id'] }}" class="btn btn-primary d-flex align-items-center me-4"><i class="bx bx-user-check bx-sm me-2"></i>Hire Applicant</a>
                         @else
                             <p>You can't hire this applicant, the applicant is already hired by other employer.</p>
