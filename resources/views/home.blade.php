@@ -3,6 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <!-- Total Revenue -->
+        @if (auth()->user()->role == 'Admin')
         <div class="col-12 col-xxl-8 order-2 order-md-3 order-xxl-2 mb-6">
             <div class="card">
                 <div class="row row-bordered g-0">
@@ -17,7 +18,9 @@
                 </div>
             </div>
         </div>
+        @endif
         <!--/ Total Revenue -->
+        @if (auth()->user()->role == 'Admin')
         <div class="col-lg-4 col-md-4 order-1">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-6 mb-6">
@@ -74,6 +77,66 @@
                 </div>
             </div>
         </div>
+        @endif
+
+        @if (auth()->user()->role == 'User')
+        <div class="col-lg-12 col-md-12">
+            <div class="row">
+                <div class="col-lg-3 col-md-12 col-6 mb-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                                <div class="avatar flex-shrink-0">
+                                    <img src="{{ url('assets/img/icons/unicons/chart-success.png') }}" alt="chart success" class="rounded" />
+                                </div>
+                            </div>
+                            <p class="mb-1">Job Posting</p>
+                            <h4 class="card-title mb-3">{{ $jobPost }}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 col-6 mb-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                                <div class="avatar flex-shrink-0">
+                                    <img src="{{ url('assets/img/icons/unicons/wallet-info.png') }}" alt="wallet info" class="rounded" />
+                                </div>
+                            </div>
+                            <p class="mb-1">Job Applications</p>
+                            <h4 class="card-title mb-3">{{ $myApplications }}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 mb-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                                <div class="avatar flex-shrink-0">
+                                    <img src="{{ url('assets/img/icons/unicons/paypal.png') }}" alt="paypal" class="rounded" />
+                                </div>
+                            </div>
+                            <p class="mb-1">Pending Applicants</p>
+                            <h4 class="card-title mb-3">{{ $pendingApplicants }}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 mb-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                                <div class="avatar flex-shrink-0">
+                                    <img src="{{ url('assets/img/icons/unicons/cc-primary.png') }}" alt="Credit Card" class="rounded" />
+                                </div>
+                            </div>
+                            <p class="mb-1">Hired Applicants</p>
+                            <h4 class="card-title mb-3">{{ $hiredApplicants }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 </div>
 @endsection

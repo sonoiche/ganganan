@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Client\Payment;
 use Illuminate\Support\Facades\DB;
 use App\Models\Client\JobApplication;
+use App\Models\JobOpening;
 
 class HomeController extends Controller
 {
@@ -28,15 +29,21 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user_id    = auth()->user()->id;
         $monthNow   = Carbon::now()->format('m');
         $yearNow    = Carbon::now()->format('Y');
 
-        $data['monthlyProfit']  = Payment::whereMonth('created_at', $monthNow)->whereYear('created_at', $yearNow)->sum('amount');
-        $data['applicants']     = User::where('role', 'User')->count();
-        $data['applications']   = JobApplication::where('status', 'Applied')->count();
-        $data['hired']          = JobApplication::where('status', 'Hired')->count();
+        $data['monthlyProfit']      = Payment::whereMonth('created_at', $monthNow)->whereYear('created_at', $yearNow)->sum('amount');
+        $data['applicants']         = User::where('role', 'User')->count();
+        $data['applications']       = JobApplication::where('status', 'Applied')->count();
+        $data['hired']              = JobApplication::where('status', 'Hired')->count();
 
-        $data['chart']          = $this->getMonthlyPaymentCount('');
+        $data['chart']              = $this->getMonthlyPaymentCount('');
+
+        $data['jobPost']            = JobOpening::where('user_id', $user_id)->count();
+        $data['myApplications']     = JobApplication::where('user_id', $user_id)->count();
+        $data['hiredApplicants']    = JobApplication::where('employer_id', $user_id)->whereIn('status', ['Hired','Completed'])->count();
+        $data['pendingApplicants']  = JobApplication::where('employer_id', $user_id)->where('status', 'Applied')->count();
 
         return view('home', $data);
     }
