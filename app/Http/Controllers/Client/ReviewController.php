@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client\JobApplication;
+use App\Models\Client\Review;
 use Illuminate\Http\Request;
 
-class HiredApplicantController extends Controller
+class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data['applications'] = JobApplication::where('employer_id', auth()->user()->id)->where('status', '!=', 'Applied')->latest()->get();
-        return view('client.hired.index', $data);
+        //
     }
 
     /**
@@ -30,7 +30,22 @@ class HiredApplicantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $application_id = $request['application_id'];
+        $application    = JobApplication::find($application_id);
+        $status = $request['status'];
+        $review = new Review();
+        $review->rating         = $request['rating'];
+        $review->review         = $request['review'];
+        $review->user_id        = $application->user_id;
+        $review->employer_id    = auth()->user()->id;
+        $review->save();
+
+        if(isset($status)) {
+            $application->status = 'Completed';
+            $application->save();
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -38,7 +53,11 @@ class HiredApplicantController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $application = JobApplication::find($id);
+        $application->status = 'Completed';
+        $application->save();
+
+        return response()->json(200);
     }
 
     /**

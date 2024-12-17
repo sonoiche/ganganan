@@ -55,6 +55,49 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Employer Feedbacks</h4>
+                    @foreach ($applicant->reviews as $review)
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <img src="{{ $review->employer->display_photo ?? '' }}" alt="..." />
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div>
+                                {{ $review->employer->fullname ?? '' }}
+                                <div class="d-flex" style="marign-top: 15px">
+                                    <input id="input-id" type="text" class="rating input-id" data-size="xs" data-min="0" data-max="5" data-step="1" data-show-caption="false" data-show-clear="false" value="{{ $review->rating }}" readonly style="width: 10px" />
+                                    <div class="d-flex align-items-center" style="height: 25px;">
+                                        <small>{{ $review->created_date }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p style="margin-top: 10px">{{ $review->review }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
+
+@section('css')
+<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
+@endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
+<script>
+$(document).ready(function () {
+    $(".input-id").rating(); 
+});
+</script>
+@endpush

@@ -16,7 +16,7 @@
                             <th class="sorting">Applicant</th>
                             <th class="sorting">Date Hired</th>
                             <th class="sorting text-center">Status</th>
-                            {{-- <th class="sorting_disabled text-center">Actions</th> --}}
+                            <th class="sorting_disabled text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,9 +28,12 @@
                             <td>{{ $application->user->fullname ?? '' }}</td>
                             <td>{{ \Carbon\Carbon::parse($application->updated_at)->format('M d, Y') }}</td>
                             <td class="text-center">{{ $application->status }}</td>
-                            {{-- <td class="text-center">
-                                <a href="javascript:;" onclick="removeApplication({{ $application->id }})" class="btn btn-icon item-edit text-danger"><i class="bx bx-trash bx-md"></i></a>
-                            </td> --}}
+                            <td class="text-center">
+                                <a href="javascript:;" onclick="removeApplicant({{ $application->id }})" class="btn btn-icon item-edit text-primary"><i class="bx bx-edit-alt bx-md"></i></a>
+                                @if ($application->status == 'Hired')
+                                <a href="javascript:;" onclick="completeWork({{ $application->id }})" class="btn btn-icon item-edit text-success"><i class="bx bx-calendar-check bx-md"></i></a>
+                                @endif
+                            </td>
                         </tr>
                         @empty
                         <tr>
@@ -43,4 +46,74 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-review" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ url('client/reviews') }}" method="post">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Write a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div style="width: 100%; height: 30px; margin-bottom: 15px">
+                        <input id="input-id" type="text" class="rating" name="rating" data-size="sm" data-min="0" data-max="5" data-step="1" data-show-caption="false" data-show-clear="false" />
+                    </div>
+                    <div class="form-group">
+                        <label for="review" class="form-label">Review</label>
+                        <textarea name="review" id="review" class="form-control" style="width: 100%; resize: none" rows="5"></textarea>
+                    </div>
+                    @if ($application->status == 'Hired')
+                    <div class="form-group" style="margin-top: 10px">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" name="status" id="mark-complete">
+                            <label class="form-check-label" for="mark-complete">
+                                Mark the work as complete
+                            </label>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> &nbsp;
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <input type="hidden" name="application_id" id="application_id" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
+
+@section('css')
+<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
+@endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
+<script>
+$(document).ready(function () {
+    $("#input-id").rating(); 
+});
+
+function removeApplicant(id) {
+    $('#application_id').val(id);
+    $('#modal-review').modal('show');
+}
+
+function completeWork(id) {
+    if(confirm('Are you sure you want to complete the work?')) {
+        $.ajax({
+            type: "GET",
+            url: "{{ url('client/reviews') }}/" + id,
+            dataType: "json",
+            success: function (response) {
+                location.reload();
+            }
+        });
+    }
+}
+</script>
+@endpush

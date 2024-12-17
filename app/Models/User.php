@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Client\JobApplication;
+use App\Models\Client\Review;
 use Carbon\Carbon;
 use App\Models\Client\UserSkill;
 use App\Models\Client\Subscription;
@@ -140,5 +141,10 @@ class User extends Authenticatable
     public function application()
     {
         return $this->hasMany(JobApplication::class, 'user_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'user_id');
     }
 }

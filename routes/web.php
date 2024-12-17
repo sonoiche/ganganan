@@ -18,6 +18,7 @@ use App\Http\Controllers\Client\IdentificationController;
 use App\Http\Controllers\Client\JobController;
 use App\Http\Controllers\Client\PaymentController;
 use App\Http\Controllers\Client\ProfileController;
+use App\Http\Controllers\Client\ReviewController;
 use App\Http\Controllers\Client\SkillController as ClientSkillController;
 use App\Http\Controllers\Client\SubscriptionController;
 use App\Http\Controllers\SiteController;
@@ -60,6 +61,7 @@ Route::prefix('client')->middleware(['auth:web','inactive-user'])->group( functi
     Route::resource('applicants', ApplicantController::class);
     Route::resource('assessments', ClientAssessmentController::class);
     Route::resource('hired', HiredApplicantController::class);
+    Route::resource('reviews', ReviewController::class);
 });
 
 Route::prefix('client')->middleware(['auth:web'])->group( function() {

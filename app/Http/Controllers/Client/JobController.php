@@ -18,7 +18,9 @@ class JobController extends Controller
     public function index()
     {
         $user_id        = auth()->user()->id;
-        $data['jobs']   = JobOpening::where('user_id', $user_id)->latest()->get();
+        $data['jobs']   = JobOpening::with(['applications' => function ($query) {
+                return $query->where('status', 'Applied');
+            }])->where('user_id', $user_id)->latest()->get();
         return view('client.jobs.index', $data);
     }
 
