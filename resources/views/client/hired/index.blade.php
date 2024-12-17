@@ -29,7 +29,9 @@
                             <td>{{ \Carbon\Carbon::parse($application->updated_at)->format('M d, Y') }}</td>
                             <td class="text-center">{{ $application->status }}</td>
                             <td class="text-center">
+                                @if ($application->status == 'Hired' || $application->status == 'Completed')
                                 <a href="javascript:;" onclick="removeApplicant({{ $application->id }})" class="btn btn-icon item-edit text-primary"><i class="bx bx-edit-alt bx-md"></i></a>
+                                @endif
                                 @if ($application->status == 'Hired')
                                 <a href="javascript:;" onclick="completeWork({{ $application->id }})" class="btn btn-icon item-edit text-success"><i class="bx bx-calendar-check bx-md"></i></a>
                                 @endif
@@ -37,7 +39,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td class="text-center" colspan="6">No data available</td>
+                            <td class="text-center" colspan="7">No data available</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -63,7 +65,6 @@
                         <label for="review" class="form-label">Review</label>
                         <textarea name="review" id="review" class="form-control" style="width: 100%; resize: none" rows="5"></textarea>
                     </div>
-                    @if ($application->status == 'Hired')
                     <div class="form-group" style="margin-top: 10px">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="1" name="status" id="mark-complete">
@@ -72,7 +73,6 @@
                             </label>
                         </div>
                     </div>
-                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> &nbsp;

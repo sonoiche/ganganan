@@ -57,10 +57,12 @@ class RegisterController extends Controller
                 'email'             => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password'          => ['required', 'string', 'min:8', 'confirmed'],
                 'contact_number'    => ['required', 'string', 'max:255'],
+                'privacy'           => ['required']
             ],
             [
                 'fname.required'    => 'The first name field is required.',
-                'lname.required'    => 'The last name field is required.'
+                'lname.required'    => 'The last name field is required.',
+                'privacy.required'  => 'The privacy policy field is required.'
             ]
         );
     }

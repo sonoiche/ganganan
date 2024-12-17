@@ -38,6 +38,7 @@
                 top: 67px;
             }
         </style>
+        @laravelPWA
     </head>
     <body>
         <!-- Header start -->
@@ -211,5 +212,6 @@
 
         <!-- Custom js -->
         <script src="{{ url('site/js/script.js') }}"></script>
+        @stack('scripts')
     </body>
 </html>
