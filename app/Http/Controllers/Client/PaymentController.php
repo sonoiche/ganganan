@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Client;
 use Illuminate\Http\Request;
 use App\Models\Client\Payment;
 use App\Http\Controllers\Controller;
-use App\Models\Subscription;
+use App\Models\Client\Subscription;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
