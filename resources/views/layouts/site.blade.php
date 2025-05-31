@@ -31,7 +31,7 @@
             }
             .bg-yellow {
                 position: absolute;
-                background: #F9D689;
+                background: #52e1ef;
                 width: 100%;
                 height: 503px;
                 opacity: 0.3;

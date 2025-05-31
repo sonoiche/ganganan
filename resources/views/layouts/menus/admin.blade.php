@@ -64,14 +64,14 @@
                 <div class="text-truncate" data-i18n="Assessment Tests">Assessment Tests</div>
             </a>
         </li>
-        <li class="menu-item {{ checkUrl(['payments','profit-chart','applicants']) }}">
+        <li class="menu-item {{ checkUrl(['payment-report','profit-chart','applicants']) }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-bar-chart-alt-2"></i>
                 <div class="text-truncate" data-i18n="Reports">Reports</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ (strpos($currentUrl, 'payments') !== false) ? 'active' : '' }}">
-                    <a href="{{ url('admin/reports/payments') }}" class="menu-link">
+                <li class="menu-item {{ (strpos($currentUrl, 'payment-report') !== false) ? 'active' : '' }}">
+                    <a href="{{ url('admin/reports/payment-report') }}" class="menu-link">
                         <div class="text-truncate" data-i18n="Profit Reports">Profit</div>
                     </a>
                 </li>

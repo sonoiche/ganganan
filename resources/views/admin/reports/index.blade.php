@@ -10,7 +10,7 @@
                             <h5 class="card-title mb-0">Reports - Profit</h5>
                         </div>
                         <div class="d-flex align-items-center">
-                            <form action="{{ url('admin/reports/payments') }}" method="get" class="d-flex justify-cotent-end">
+                            <form action="{{ url('admin/reports/payment-report') }}" method="get" class="d-flex justify-cotent-end">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">
                                         <i class='bx bxs-calendar'></i>

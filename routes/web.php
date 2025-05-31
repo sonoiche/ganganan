@@ -46,7 +46,7 @@ Route::prefix('admin')->middleware(['auth:web'])->group( function() {
     Route::resource('payments', AdminPaymentController::class);
 
     Route::resource('reports/profit-chart', ProfitChartController::class);
-    Route::resource('reports/payments', ReportController::class);
+    Route::resource('reports/payment-report', ReportController::class);
     Route::resource('reports/applicants', ApplicantChartController::class);
 });
 
