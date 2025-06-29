@@ -17,10 +17,15 @@ class JobController extends Controller
      */
     public function index()
     {
+        if(auth()->user()->role == 'Admin') {
+            return redirect()->to('home');
+        }
+
         $user_id        = auth()->user()->id;
         $data['jobs']   = JobOpening::with(['applications' => function ($query) {
                 return $query->where('status', 'Applied');
             }])->where('user_id', $user_id)->latest()->get();
+
         return view('client.jobs.index', $data);
     }
 
@@ -29,6 +34,10 @@ class JobController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->role == 'Admin') {
+            return redirect()->to('home');
+        }
+
         $data['skills'] = Skill::orderBy('name')->get();
         return view('client.jobs.create', $data);
     }
@@ -39,7 +48,7 @@ class JobController extends Controller
     public function store(JobRequest $request)
     {
         $content_skills = '';
-        $skills = $request['skills'];
+        $skills = $request['skills'] ?? [];
         foreach ($skills as $skill) {
             $content_skills .= "'" .$skill. "',";
         }
@@ -91,6 +100,10 @@ class JobController extends Controller
      */
     public function edit(string $id)
     {
+        if(auth()->user()->role == 'Admin') {
+            return redirect()->to('home');
+        }
+        
         $data['skills'] = Skill::orderBy('name')->get();
         $data['job']    = JobOpening::find($id);
         return view('client.jobs.edit', $data);

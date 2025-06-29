@@ -57,11 +57,11 @@
                         <div class="navbar navbar-expand-lg navbar-light" role="navigation" style="position: relative">
                             <div class="collapse navbar-collapse" id="nav-main">
                                 <ul class="navbar-nav ms-auto">
-                                    <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Pangunahing Pahina</a></li>
-                                    {{-- <li class="nav-item"><a href="#" class="nav-link">About us</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li> --}}
+                                    {{-- <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Pangunahing Pahina</a></li> --}}
+                                    {{-- <li class="nav-item"><a href="#" class="nav-link">About us</a></li> --}}
                                     @if (!auth()->check())
                                     <li class="nav-item"><a href="{{ url('login') }}" class="nav-link">Mag Login</a></li>
+                                    <li class="nav-item"><a href="{{ url('register') }}" class="nav-link">Guamwa ng Account</a></li>
                                     @endif
                                     <li class="nav-item postjob">
                                         <a href="{{ url('client/jobs/create') }}" class="nav-link auth-link">
@@ -79,9 +79,9 @@
                                             &nbsp;Maghanap ng Trabaho
                                         </a>
                                     </li>
+                                    @if (auth()->check())
                                     <li class="nav-item dropdown userbtn">
                                         <a href="#" class="nav-link"><img src="{{ url('site/images/candidates/01.jpg') }}" alt="" class="userimg" /></a>
-                                        @if (auth()->check())
                                         <ul class="dropdown-menu">
                                             <li class="nav-item" style="margin: 3px 0">
                                                 <a href="{{ url('home') }}" class="nav-link">
@@ -111,8 +111,8 @@
                                                 </form>
                                             </li>
                                         </ul>
-                                        @endif
                                     </li>
+                                    @endif
                                 </ul>
                                 <!-- Nav collapes end -->
                             </div>
