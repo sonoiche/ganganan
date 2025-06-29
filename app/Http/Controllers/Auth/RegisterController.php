@@ -83,7 +83,7 @@ class RegisterController extends Controller
             'contact_number'    => $data['contact_number'],
             'role'              => 'User',
             'status'            => 'Inactive',
-            'otp_password'      => mt_rand(100000, 999999),
+            'otp_password'      => 111111,
         ]);
     }
 
