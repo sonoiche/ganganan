@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'name' => 'Ganganan',
+    'name' => 'Skill Link',
     'manifest' => [
-        'name' => env('APP_NAME', 'Ganganan App'),
+        'name' => env('APP_NAME', 'Skill Link'),
         'short_name' => 'PWA',
         'start_url' => '/',
         'background_color' => '#ffffff',
