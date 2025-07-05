@@ -121,3 +121,50 @@
   text-align: center;
   margin-top: 1rem;
 }
+
+.w-skill-search {
+  width: 40%;
+  margin-right: 20px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+}
+
+.assessment-action {
+  display: flex;
+  justify-content: end;
+}
+
+.assessment-header {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .w-skill-search {
+    width: 90%;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .assessment-action {
+    display: flex;
+    justify-content: center;
+  }
+
+  .assessment-header {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+
+  .pr-button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 767px) {
+  .btn-pill {
+    display: flex;
+    justify-content: start;
+  }
+}

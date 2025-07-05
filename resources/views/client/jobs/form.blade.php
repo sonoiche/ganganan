@@ -3,13 +3,13 @@
     <input type="text" name="job_title" class="form-control" id="job_title" value="{{ $job->job_title ?? '' }}" />
 </div>
 <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="workers_need" class="form-label">Number of Needs</label>
             <input type="number" name="workers_need" class="form-control" id="workers_need" value="{{ $job->workers_need ?? '' }}" />
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="workers_gender" class="form-label">Gender</label>
             <select name="workers_gender" id="workers_gender" class="form-select">
@@ -21,13 +21,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="salary" class="form-label">Salary</label>
             <input type="number" name="salary" class="form-control" id="salary" value="{{ $job->salary ?? '' }}" />
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="salary_rate" class="form-label">Salary Rate</label>
             <select name="salary_rate" id="salary_rate" class="form-select">
@@ -47,13 +47,13 @@
     </select>
 </div>
 <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="date_needed" class="form-label">Date Needed</label>
             <input type="date" name="date_needed" class="form-control" id="date_needed" value="{{ $job->date_needed ?? '' }}" />
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="date_until" class="form-label">Date Until</label>
             <input type="date" name="date_until" class="form-control" id="date_until" value="{{ $job->date_until ?? '' }}" />
@@ -70,13 +70,13 @@
     </select>
 </div>
 <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="location" class="form-label">Location</label>
             <input type="text" name="location" class="form-control" id="location" value="{{ $job->location ?? '' }}" />
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="photo" class="form-label">Photo</label>
             <input type="file" name="photo" class="form-control" id="photo" />

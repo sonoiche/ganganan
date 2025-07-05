@@ -25,23 +25,23 @@
                             <table class="table datatable-project dataTable no-footer dtr-column">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">#</th>
-                                        <th>Created Date</th>
-                                        <th>Identification</th>
-                                        <th class="text-center">File</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-nowrap text-center">#</th>
+                                        <th class="text-nowrap">Created Date</th>
+                                        <th class="text-nowrap">Identification</th>
+                                        <th class="text-nowrap text-center">File</th>
+                                        <th class="text-nowrap text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($identifications as $key => $identification)
                                     <tr>
-                                        <td class="text-center">{{ $key+1 }}</td>
-                                        <td>{{ $identification->created_date }}</td>
-                                        <td>{{ $identification->identification_type }}</td>
-                                        <td class="text-center">
+                                        <td class="text-nowrap text-center" style="padding-right: 50px">{{ $key+1 }}</td>
+                                        <td class="text-nowrap" style="padding-right: 50px">{{ $identification->created_date }}</td>
+                                        <td class="text-nowrap" style="padding-right: 50px">{{ $identification->identification_type }}</td>
+                                        <td class="text-nowrap text-center" style="padding-right: 50px">
                                             <a href="{{ $identification->file_url }}" class="btn btn-outline-primary btn-sm" target="_blank"><i class="bx bxs-download" ></i> &nbsp;Download</a>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-nowrap text-center" style="padding-right: 50px">
                                             <a href="{{ url('client/identifications', $identification->id) }}/edit" class="btn btn-icon item-edit text-success"><i class="bx bx-edit bx-md"></i></a>
                                             <a href="javascript:;" onclick="removeIdentification({{ $identification->id }})" class="btn btn-icon item-edit text-danger"><i class="bx bx-trash bx-md"></i></a>
                                         </td>

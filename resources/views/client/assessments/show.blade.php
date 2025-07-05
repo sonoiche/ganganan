@@ -11,7 +11,7 @@
                     <form action="{{ url('client/assessments') }}" method="post">
                         @csrf
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <ol>
                                     @foreach ($questions as $key => $item)
                                     <li>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <div class="mt-3" style="margin-left: 15px;">
                                     <button class="btn btn-primary" type="submit">Submit Answer</button>
                                 </div>

@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-        <div class="col-7">
+        <div class="col-12">
             <div class="card">
                 <h5 class="card-header">Add New Job</h5>
                 <div class="card-body">

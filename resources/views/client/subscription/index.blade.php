@@ -25,23 +25,23 @@
                             <table class="table datatable-project dataTable no-footer dtr-column">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">#</th>
-                                        <th>Created Date</th>
-                                        <th>Invoice Number</th>
-                                        <th>Amount</th>
-                                        <th class="text-center">Valid Until</th>
-                                        <th class="text-center">Proof</th>
+                                        <th class="text-nowrap text-center">#</th>
+                                        <th class="text-nowrap">Created Date</th>
+                                        <th class="text-nowrap">Invoice Number</th>
+                                        <th class="text-nowrap">Amount</th>
+                                        <th class="text-nowrap text-center">Valid Until</th>
+                                        <th class="text-nowrap text-center">Proof</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($subscriptions as $key => $subscription)
                                     <tr>
-                                        <td class="text-center">{{ $key+1 }}</td>
-                                        <td>{{ $subscription->created_date }}</td>
-                                        <td>{{ $subscription->invoice_number }}</td>
-                                        <td>{{ $subscription->amount }}</td>
-                                        <td class="text-center">{{ $subscription->valid_until_date }}</td>
-                                        <td class="text-center">
+                                        <td class="text-nowrap text-center" style="padding-right: 50px">{{ $key+1 }}</td>
+                                        <td class="text-nowrap" style="padding-right: 50px">{{ $subscription->created_date }}</td>
+                                        <td class="text-nowrap" style="padding-right: 50px">{{ $subscription->invoice_number }}</td>
+                                        <td class="text-nowrap" style="padding-right: 50px">{{ $subscription->amount }}</td>
+                                        <td class="text-nowrap text-center" style="padding-right: 50px">{{ $subscription->valid_until_date }}</td>
+                                        <td class="text-nowrap text-center" style="padding-right: 50px">
                                             @if (isset($subscription->payment))
                                             <a href="{{ $subscription->payment->proof }}" target="_blank">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">

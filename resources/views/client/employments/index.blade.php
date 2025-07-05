@@ -25,23 +25,23 @@
                             <table class="table datatable-project dataTable no-footer dtr-column">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">#</th>
-                                        <th>Created Date</th>
-                                        <th>Service / Work</th>
-                                        <th>Employed Date</th>
-                                        <th>Employer Name</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-nowrap text-center">#</th>
+                                        <th class="text-nowrap">Created Date</th>
+                                        <th class="text-nowrap">Service / Work</th>
+                                        <th class="text-nowrap">Employed Date</th>
+                                        <th class="text-nowrap">Employer Name</th>
+                                        <th class="text-nowrap text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($employments as $key => $employment)
                                     <tr>
-                                        <td class="text-center">{{ $key+1 }}</td>
-                                        <td>{{ $employment->created_date }}</td>
-                                        <td>{{ $employment->name }}</td>
-                                        <td>{{ $employment->employment_date_display }}</td>
-                                        <td>{{ $employment->employer }}</td>
-                                        <td class="text-center">
+                                        <td class="text-nowrap text-center" style="padding-right: 50px">{{ $key+1 }}</td>
+                                        <td class="text-nowrap" style="padding-right: 50px">{{ $employment->created_date }}</td>
+                                        <td class="text-nowrap" style="padding-right: 50px">{{ $employment->name }}</td>
+                                        <td class="text-nowrap" style="padding-right: 50px">{{ $employment->employment_date_display }}</td>
+                                        <td class="text-nowrap" style="padding-right: 50px">{{ $employment->employer }}</td>
+                                        <td class="text-nowrap text-center" style="padding-right: 50px">
                                             <a href="{{ url('client/employments', $employment->id) }}/edit" class="btn btn-icon item-edit text-success"><i class="bx bx-edit bx-md"></i></a>
                                             <a href="javascript:;" onclick="removeEmployment({{ $employment->id }})" class="btn btn-icon item-edit text-danger"><i class="bx bx-trash bx-md"></i></a>
                                         </td>

@@ -7,13 +7,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="items" class="form-label">Items Count</label>
             <input type="number" name="items" class="form-control" id="items" value="{{ $assessment->items ?? '' }}" />
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="passing_grade" class="form-label">Passing Grade</label>
             <input type="number" name="passing_grade" class="form-control" id="passing_grade" value="{{ $assessment->passing_grade ?? '' }}" />

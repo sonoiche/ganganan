@@ -37,6 +37,22 @@
                 opacity: 0.3;
                 top: 67px;
             }
+            .navtog {
+                display: none;
+            }
+            @media (max-width: 768px) {
+                .navtog {
+                    display: block;
+                    border: none;
+                    background-color: transparent;
+                }
+                .navbar-nav li.postjob a.nav-link {
+                    border-radius: 0;
+                }
+                .navbar-nav li.jobseeker a.nav-link {
+                    border-radius: 0;
+                }
+            }
         </style>
         @laravelPWA
     </head>
@@ -45,12 +61,14 @@
         <div class="header">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-2 col-sm-3 col-xs-12 navbar-light">
+                    <div class="col-12 col-md-2 navbar-light d-flex justify-content-between">
                         <a href="{{ url('/') }}" class="logo"><img src="{{ url('site/images/logo.png') }}" alt="" /></a>
 
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-main" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+                        <div class="d-flex align-items-center">
+                            <button class="navtog" type="button" data-bs-toggle="collapse" data-bs-target="#nav-main" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </div>
                     </div>
                     <div class="col-md-10 col-sm-12 col-xs-12">
                         <!-- Nav start -->

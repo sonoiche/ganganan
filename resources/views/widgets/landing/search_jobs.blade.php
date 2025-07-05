@@ -1,6 +1,5 @@
 <!-- Search start -->
 <div class="searchwrap">
-    <div class="bg-yellow"></div>
     <div class="container" style="position: relative">
         <h3>Isang milyong kwento ng tagumpay. <span>Simulan mo ang sa'yo ngayon.</span></h3>
         <p>Maghanap ng Trabaho, Pagkakakitaan, at Mga Oportunidad sa Karera</p>
@@ -30,8 +29,14 @@
         </div>
         <!-- button start -->
         <div class="getstarted">
-            <a href="{{ url('client/jobs/create') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> I-post ang iyong Trabaho</a>
-            <a href="{{ url('jobs') }}"><i class="fa fa-user-o" aria-hidden="true"></i> Maghanap ng Trabaho</a>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <a href="{{ url('client/jobs/create') }}" class="w-full"><i class="fa fa-briefcase" aria-hidden="true"></i> I-post ang iyong Trabaho</a>
+                </div>
+                <div class="col-12 col-md-6">
+                    <a href="{{ url('jobs') }}" class="w-full"><i class="fa fa-user-o" aria-hidden="true"></i> Maghanap ng Trabaho</a>
+                </div>
+            </div>
         </div>
         <!-- button end -->
     </div>

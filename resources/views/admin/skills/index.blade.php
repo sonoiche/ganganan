@@ -2,14 +2,14 @@
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
-        <div class="d-flex justify-content-between">
-            <h5 class="card-header">List of Skills</h5>
-            <div class="d-flex align-items-center text-end pt-6 pt-md-0" style="margin-right: 20px; width: 30%">
-                <form action="{{ url('admin/skills') }}" method="post" style="width: 100%">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+            <h5 class="card-header skill-header">List of Skills</h5>
+            <div class="w-skill-search w-md-auto text-end pt-md-0">
+                <form action="{{ url('admin/skills') }}" method="post" class="w-100">
                     @csrf
                     <div class="input-group @error('name') is-invalid @enderror">
                         <input type="text" name="name" id="skill_name" class="form-control @error('name') is-invalid @enderror" placeholder="Skill name" />
-                        <button class="btn btn-secondary create-new btn-primary">
+                        <button class="btn btn-secondary create-new btn-primary" type="submit">
                             Save
                         </button>
                     </div>
@@ -20,6 +20,7 @@
                 </form>
             </div>
         </div>
+
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <thead>
