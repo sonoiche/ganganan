@@ -4,7 +4,7 @@ return [
     'name' => 'Skill Link',
     'manifest' => [
         'name' => env('APP_NAME', 'Skill Link'),
-        'short_name' => 'PWA',
+        'short_name' => 'Skill Link',
         'start_url' => '/',
         'background_color' => '#ffffff',
         'theme_color' => '#000000',
