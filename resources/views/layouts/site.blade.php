@@ -54,6 +54,7 @@
                 }
             }
         </style>
+        <link rel="manifest" href="/manifest.json">
         @laravelPWA
     </head>
     <body>
