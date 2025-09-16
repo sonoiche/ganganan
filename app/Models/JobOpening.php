@@ -46,11 +46,11 @@ class JobOpening extends Model
     public function getArraySkillsAttribute()
     {
         $skills = str_replace("'","",$this->skills);
-        if($skills) {
+        if ($skills) {
             return explode(',', $skills);
         }
 
-        return '';
+        return [];
     }
 
     public function employer()

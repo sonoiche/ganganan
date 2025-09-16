@@ -13,10 +13,10 @@ class UserSkill extends Model
     public function getArraySkillsAttribute()
     {
         $skills = str_replace("'","",$this->skills);
-        if($skills) {
+        if ($skills) {
             return explode(',', $skills);
         }
 
-        return '';
+        return [];
     }
 }

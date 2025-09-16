@@ -69,6 +69,13 @@ class SkillController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $skill = Skill::findOrFail($id);
+        $skill->delete();
+
+        if (request()->ajax()) {
+            return response()->json(['message' => 'Skill deleted successfully.']);
+        }
+
+        return redirect()->back()->with('success', 'Skill deleted successfully.');
     }
 }

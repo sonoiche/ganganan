@@ -6,8 +6,6 @@ use App\Models\Client\JobApplication;
 use App\Models\User;
 use App\Models\JobOpening;
 use Illuminate\Http\Request;
-use App\Models\Client\UserSkill;
-use Illuminate\Support\Facades\DB;
 
 class SiteController extends Controller
 {
@@ -32,60 +30,74 @@ class SiteController extends Controller
         return redirect()->to('home');
     }
 
-    public function jobs()
+    public function jobs(Request $request)
     {
-        $today          = now()->format('Y-m-d');
-        $applicant_ids  = UserSkill::pluck('user_id');
-        $applicants = User::where('role', 'User')
-            ->with('user_skill')
-            ->where('status', 'Active')
-            ->whereIn('id', $applicant_ids)
-            ->get();
+        $today = now()->format('Y-m-d');
+        $searchTerm = trim((string) $request->query('search', ''));
 
-        $matchedJobs    = collect();
-        
-        foreach ($applicants as $applicant) {
-            $applicantSkills = $applicant->user_skill->array_skills ?? [];
+        $jobTitles = JobOpening::where('status', 'Publish')
+            ->where('date_until', '>', $today)
+            ->orderBy('job_title')
+            ->pluck('job_title')
+            ->filter()
+            ->unique()
+            ->values();
+
+        if ($searchTerm !== '') {
+            $jobs = JobOpening::where('status', 'Publish')
+                ->where('date_until', '>', $today)
+                ->where(function ($query) use ($searchTerm) {
+                    $query->where('job_title', 'LIKE', "%{$searchTerm}%")
+                        ->orWhere('location', 'LIKE', "%{$searchTerm}%");
+                })
+                ->orderBy('job_title')
+                ->get();
+        } elseif (auth()->check()) {
+            $user = auth()->user()->load('user_skill');
+            $applicantSkills = $user->user_skill->array_skills ?? [];
+            $applicantSkills = is_array($applicantSkills) ? $applicantSkills : [];
 
             $jobs = JobOpening::where('status', 'Publish')
-                ->when(auth()->check(), function($query) {
-                    if(auth()->user()->city != '') {
-                        return $query->where('location', 'LIKE', '%'.auth()->user()->city.'%');
-                    }
-                })
                 ->where('date_until', '>', $today)
+                ->when($user->city, function ($query) use ($user) {
+                    $query->where('location', 'LIKE', '%'.$user->city.'%');
+                })
                 ->get()
                 ->map(function ($job) use ($applicantSkills) {
-                    $jobSkills      = $job->array_skills;
-                    $matchedCount   = count(array_intersect($applicantSkills, $jobSkills));
-                    
+                    $jobSkills = $job->array_skills;
+                    $jobSkills = is_array($jobSkills) ? $jobSkills : [];
+                    $matchedCount = count(array_intersect($applicantSkills, $jobSkills));
+
                     return [
-                        'job'               => $job,
-                        'matched_skills'    => $matchedCount,
+                        'job' => $job,
+                        'matched_skills' => $matchedCount,
                     ];
-            });
+                })
+                ->filter(function ($job) {
+                    return $job['matched_skills'] > 0;
+                })
+                ->sortByDesc('matched_skills')
+                ->pluck('job')
+                ->values();
 
-            foreach ($jobs as $job) {
-                if ($job['matched_skills'] > 0) {
-                    $matchedJobs->push($job);
-                }
+            if ($jobs->isEmpty()) {
+                $jobs = JobOpening::where('status', 'Publish')
+                    ->where('date_until', '>', $today)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
             }
+        } else {
+            $jobs = JobOpening::where('status', 'Publish')
+                ->where('date_until', '>', $today)
+                ->orderBy('created_at', 'desc')
+                ->get();
         }
 
-        // Use unique() to filter out duplicates based on job ID
-        $matchedJobs = $matchedJobs->unique(function ($item) {
-            return $item['job']->id;
-        });
-
-        // Order by the number of matched skills
-        $matchedJobs = $matchedJobs->sortByDesc('matched_skills');
-        
-        $data['jobs'] = [];
-        foreach ($matchedJobs as  $matchedJob) {
-            $data['jobs'][] = $matchedJob['job'];
-        }
-        
-        return view('site.jobs.index', $data);
+        return view('site.jobs.index', [
+            'jobs' => $jobs,
+            'search' => $searchTerm,
+            'jobTitles' => $jobTitles,
+        ]);
     }
 
     public function apply($id)

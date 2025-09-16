@@ -32,28 +32,38 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $user_id     = auth()->user()->id;
-        $suscription = Subscription::where('user_id', $user_id)->where('status', 'Unpaid')->latest()->first();
-        $payment = new Payment();
-        if(isset($request['photo']) && $request->has('photo')) {
-            $file  = $request->file('photo');
-            $photo = time().'.'.$file->getClientOriginalExtension();
+        $subscription = Subscription::where('user_id', $user_id)
+            ->where('status', 'Unpaid')
+            ->latest()
+            ->first();
 
-            $path = Storage::disk('s3')->putFileAs(
-                'ganganan/uploads/subscriptions',
-                $file,
-                $photo,
-                'public'
-            );
-            
-            $payment->user_id           = $user_id;
-            $payment->subscription_id   = $suscription->id;
-            $payment->proof             = Storage::disk('s3')->url($path);
-            $payment->amount            = 50;
-            $payment->status            = 'Pending';
-            $payment->save();
+        if (!$subscription) {
+            return redirect()->back()->with('error', 'No unpaid subscription found to attach the proof of payment.');
         }
 
-        return redirect()->to('client/subscription');
+        if (!$request->hasFile('photo')) {
+            return redirect()->back()->with('error', 'Please upload a valid proof of payment.');
+        }
+
+        $file  = $request->file('photo');
+        $photo = time().'.'.$file->getClientOriginalExtension();
+
+        $path = Storage::disk('s3')->putFileAs(
+            'ganganan/uploads/subscriptions',
+            $file,
+            $photo,
+            'public'
+        );
+
+        $payment = new Payment();
+        $payment->user_id           = $user_id;
+        $payment->subscription_id   = $subscription->id;
+        $payment->proof             = Storage::disk('s3')->url($path);
+        $payment->amount            = 50;
+        $payment->status            = 'Pending';
+        $payment->save();
+
+        return redirect()->to('client/subscription')->with('success', 'Proof of payment uploaded successfully.');
     }
 
     /**

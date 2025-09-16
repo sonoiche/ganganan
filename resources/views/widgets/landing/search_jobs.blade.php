@@ -4,10 +4,12 @@
         <h3>Isang milyong kwento ng tagumpay. <span>Simulan mo ang sa'yo ngayon.</span></h3>
         <p>Maghanap ng Trabaho, Pagkakakitaan, at Mga Oportunidad sa Karera</p>
         <div class="searchbar">
-            <div class="row">
-                <div class="col-md-10">
-                    <input type="text" class="form-control" placeholder="Ilagay ang Pamagat ng Trabaho" />
-                </div>
+            <form action="{{ url('jobs') }}" method="GET">
+                <div class="row">
+                    <div class="col-md-10">
+                        <input type="text" name="search" class="form-control"
+                            placeholder="Ilagay ang Pamagat ng Trabaho" value="{{ request('search') }}" />
+                    </div>
                 {{-- <div class="col-md-3">
                     <select class="form-control">
                         <option>Select Categories</option>
@@ -22,10 +24,11 @@
                         <option>San Joes</option>
                     </select>
                 </div> --}}
-                <div class="col-md-2">
-                    <input type="submit" class="btn" value="Maghanap" />
+                    <div class="col-md-2">
+                        <input type="submit" class="btn" value="Maghanap" />
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
         <!-- button start -->
         <div class="getstarted">
