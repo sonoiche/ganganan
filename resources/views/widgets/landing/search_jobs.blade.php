@@ -1,7 +1,7 @@
 <!-- Search start -->
 <div class="searchwrap">
     <div class="container" style="position: relative">
-        <h3>Isang milyong kwento ng tagumpay. <span>Simulan mo ang sa'yo ngayon.</span></h3>
+        <h3>With this 'Link your talent, Find your client'.</h3>
         <p>Maghanap ng Trabaho, Pagkakakitaan, at Mga Oportunidad sa Karera</p>
         <div class="searchbar">
             <form action="{{ url('jobs') }}" method="GET">

@@ -11,24 +11,24 @@
             <!--step 1-->
             <li class="col-md-4 col-sm-4">
                 <div class="iconcircle"><i class="fa fa-user" aria-hidden="true"></i></div>
-                <h4>Gumawa ng Account</h4>
-                <p>Magparehistro upang magkaroon ng access sa libu-libong oportunidad sa trabaho na akma sa iyong kakayahan at interes.</p>
+                <h4>Create an Account</h4>
+                <p>Register to gain access to thousands of job opportunities that match your skills and interests.</p>
             </li>
             <!--step 1 end-->
 
             <!--step 2-->
             <li class="col-md-4 col-sm-4">
                 <div class="iconcircle"><i class="fa fa-black-tie" aria-hidden="true"></i></div>
-                <h4>Maghanap ng Nais na Trabaho</h4>
-                <p>Mag-explore ng mga bakanteng trabaho at hanapin ang perpektong posisyon na tugma sa iyong mga layunin sa karera.</p>
+                <h4>Search for a Right Job</h4>
+                <p>Explore available job openings and find the perfect position that aligns with your career goals.</p>
             </li>
             <!--step 2 end-->
 
             <!--step 3-->
             <li class="col-md-4 col-sm-4">
                 <div class="iconcircle"><i class="fa fa-file-text" aria-hidden="true"></i></div>
-                <h4>Ipadala ang Iyong Resume</h4>
-                <p>Ipasa ang iyong resume nang direkta sa mga employer at pataasin ang iyong tsansa na makuha ang trabahong pinapangarap mo.</p>
+                <h4>Send your Resume</h4>
+                <p>Submit your resume directly to employers and increase your chances of landing your dream job.</p>
             </li>
             <!--step 3 end-->
         </ul>

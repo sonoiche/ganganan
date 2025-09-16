@@ -154,8 +154,7 @@
                     <div class="col-md-3 col-sm-12">
                         <div class="ft-logo"><img src="{{ url('site/images/logo.png') }}" alt="Your alt text here" /></div>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et consequat elit. Proin molestie eros sed urna auctor lobortis. Integer eget scelerisque arcu. Pellentesque scelerisque pellentesque nisl, sit amet
-                            aliquam mi pellentesque fringilla. Ut porta augue a libero pretium laoreet. Suspendisse sit amet massa accumsan, pulvinar augue id, tristique tortor.
+                            SkillLink Pangasinan: Quick Short-Term Job and Task Matching Portal is an online platform designed to connect skilled workers with clients seeking short-term jobs and tasks. It provides a fast, reliable, and location-based job matching system for professionals like plumbers, welders, electricians, and freelancers, ensuring easy access to work opportunities. By streamlining the hiring process, SkillLink Pangasinan empowers workers with flexible income opportunities while helping clients find skilled professionals quickly and efficiently.
                         </p>
 
                         <!-- Social Icons -->
