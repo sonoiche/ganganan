@@ -74,7 +74,15 @@
                             <div class="col-12 col-md-4">
                                 <div class="mb-4">
                                     <label for="city" class="form-label">City</label>
-                                    <input type="text" name="city" class="form-control" id="city" value="{{ $user->city ?? '' }}" />
+                                    @php
+                                        $selectedCity = old('city', $user->city ?? '');
+                                    @endphp
+                                    <select name="city" id="city" class="form-select">
+                                        <option value="">Select City</option>
+                                        @foreach (config('pangasinan.towns') as $town)
+                                        <option value="{{ $town }}" {{ $selectedCity === $town ? 'selected' : '' }}>{{ $town }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-3">

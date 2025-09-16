@@ -73,7 +73,15 @@
     <div class="col-12 col-md-6">
         <div class="mb-4">
             <label for="location" class="form-label">Location</label>
-            <input type="text" name="location" class="form-control" id="location" value="{{ $job->location ?? '' }}" />
+            @php
+                $selectedLocation = old('location', $job->location ?? '');
+            @endphp
+            <select name="location" id="location" class="form-select">
+                <option value="">Select Location</option>
+                @foreach (config('pangasinan.towns') as $town)
+                <option value="{{ $town }}" {{ $selectedLocation === $town ? 'selected' : '' }}>{{ $town }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     <div class="col-12 col-md-6">

@@ -18,52 +18,98 @@ class ApplicantController extends Controller
     {
         $user_id = auth()->user()->id;
         $today   = now()->format('Y-m-d');
-        $applicant_ids = UserSkill::pluck('user_id');
+        $applicantIds = UserSkill::pluck('user_id')->unique();
 
         $jobs = JobOpening::where('status', 'Publish')
             ->where('user_id', $user_id)
             ->where('date_until', '>', $today)
             ->get();
 
-        $matchedApplicants  = collect();
+        $potentialApplicants = User::where('role', 'User')
+            ->whereIn('id', $applicantIds)
+            ->where('status', 'Active')
+            ->with('user_skill')
+            ->get();
+
         $data['applicants'] = [];
 
-        if(count($jobs)) {
-            foreach ($jobs as $job) {
-                $location   = $job->location; 
-                $jobSkills  = $job->array_skills;
-                $applicants = User::where('role', 'User')
-                    ->whereIn('id', $applicant_ids)
-                    ->when($location, function ($query, $location) {
-                        return $query->where('city', 'LIKE', '%'.$location.'%');
-                    })
-                    ->where('status', 'Active')
-                    ->get()
-                    ->map(function ($applicant) use ($jobSkills) {
-                        $applicantSkills = $applicant->user_skill->array_skills ?? [];
-                        $matchedCount = count(array_intersect($jobSkills, $applicantSkills));
-                        return [
-                            'applicant' => $applicant,
-                            'matched_skills' => $matchedCount,
-                        ];
-                    });
+        if ($jobs->isNotEmpty() && $potentialApplicants->isNotEmpty()) {
+            $scoredApplicants = collect();
 
-                    foreach ($applicants as $applicant) {
-                        if ($applicant['matched_skills'] > 0) {
-                            $matchedApplicants[] = $applicant;
+            foreach ($jobs as $job) {
+                $jobSkills = $job->array_skills;
+                $jobLocation = strtolower(trim($job->location ?? ''));
+
+                foreach ($potentialApplicants as $applicant) {
+                    $applicantSkills = $applicant->user_skill->array_skills ?? [];
+                    $matchedSkillCount = count(array_intersect($jobSkills, $applicantSkills));
+                    $skillMatchRatio = count($jobSkills) ? $matchedSkillCount / count($jobSkills) : 0;
+                    $skillCoverage = count($applicantSkills) ? $matchedSkillCount / count($applicantSkills) : 0;
+
+                    $applicantLocation = strtolower(trim($applicant->city ?? ''));
+                    $locationScore = 0;
+
+                    if ($jobLocation && $applicantLocation) {
+                        if ($jobLocation === $applicantLocation) {
+                            $locationScore = 1;
+                        } elseif (str_contains($jobLocation, $applicantLocation) || str_contains($applicantLocation, $jobLocation)) {
+                            $locationScore = 0.85;
+                        } else {
+                            $similarity = 0;
+                            similar_text($jobLocation, $applicantLocation, $similarity);
+                            $distance = levenshtein($jobLocation, $applicantLocation);
+                            $maxLength = max(strlen($jobLocation), strlen($applicantLocation));
+                            $normalizedDistance = $maxLength > 0 ? max(0, 1 - ($distance / $maxLength)) : 0;
+                            $locationScore = max($similarity / 100, $normalizedDistance);
                         }
                     }
+
+                    $overallScore = ($skillMatchRatio * 0.6) + ($skillCoverage * 0.2) + ($locationScore * 0.2);
+
+                    $shouldInclude = $matchedSkillCount > 0;
+
+                    if (!$shouldInclude && empty($jobSkills) && $locationScore > 0) {
+                        $shouldInclude = true;
+                    }
+
+                    if ($shouldInclude && $overallScore > 0) {
+                        $scoredApplicants->push([
+                            'applicant' => $applicant,
+                            'score' => $overallScore,
+                            'matched_skills' => $matchedSkillCount,
+                            'location_score' => $locationScore,
+                        ]);
+                    }
+                }
             }
 
-            $matchedApplicants = $matchedApplicants->unique(function ($item) {
-                return $item['applicant']->id;
-            });
-            
-            $matchedApplicants = $matchedApplicants->sortByDesc('matched_skills');
+            $data['applicants'] = $scoredApplicants
+                ->groupBy(fn ($item) => $item['applicant']->id)
+                ->map(fn ($items) => $items->sort(function ($a, $b) {
+                    if ($a['score'] === $b['score']) {
+                        if ($a['matched_skills'] === $b['matched_skills']) {
+                            return $b['location_score'] <=> $a['location_score'];
+                        }
 
-            foreach ($matchedApplicants as  $matchedApplicant) {
-                $data['applicants'][] = $matchedApplicant['applicant'];
-            }
+                        return $b['matched_skills'] <=> $a['matched_skills'];
+                    }
+
+                    return $b['score'] <=> $a['score'];
+                })->first())
+                ->sort(function ($a, $b) {
+                    if ($a['score'] === $b['score']) {
+                        if ($a['matched_skills'] === $b['matched_skills']) {
+                            return $b['location_score'] <=> $a['location_score'];
+                        }
+
+                        return $b['matched_skills'] <=> $a['matched_skills'];
+                    }
+
+                    return $b['score'] <=> $a['score'];
+                })
+                ->pluck('applicant')
+                ->values()
+                ->all();
         }
 
         return view('client.applicants.index', $data);

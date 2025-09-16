@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Client;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class JobRequest extends FormRequest
 {
@@ -29,7 +30,15 @@ class JobRequest extends FormRequest
             'salary'            => 'required',
             'salary_rate'       => 'required',
             'date_until'        => 'required',
+            'location'          => ['nullable', Rule::in(config('pangasinan.towns'))],
             'photo'             => 'nullable|sometimes|image',
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if ($this->has('location') && $this->input('location') === '') {
+            $this->merge(['location' => null]);
+        }
     }
 }

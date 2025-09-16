@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProfileRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class ProfileRequest extends FormRequest
             'email'             => 'required|email|unique:users,email,' . (($id) ? $id : null) . ',id',
             'contact_number'    => 'required',
             'address'           => 'required',
-            'city'              => 'required',
+            'city'              => ['required', Rule::in(config('pangasinan.towns'))],
             'zip_code'          => 'required',
             'user_type'         => 'required',
             'photo'             => 'nullable|sometimes|image',
