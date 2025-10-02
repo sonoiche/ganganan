@@ -76,18 +76,18 @@
                         <div class="navbar navbar-expand-lg navbar-light" role="navigation" style="position: relative">
                             <div class="collapse navbar-collapse" id="nav-main">
                                 <ul class="navbar-nav ms-auto">
-                                    {{-- <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Pangunahing Pahina</a></li> --}}
+                                    {{-- <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li> --}}
                                     {{-- <li class="nav-item"><a href="#" class="nav-link">About us</a></li> --}}
                                     @if (!auth()->check())
-                                    <li class="nav-item"><a href="{{ url('login') }}" class="nav-link">Mag Login</a></li>
-                                    <li class="nav-item"><a href="{{ url('register') }}" class="nav-link">Guamwa ng Account</a></li>
+                                    <li class="nav-item"><a href="{{ url('login') }}" class="nav-link">Log In</a></li>
+                                    <li class="nav-item"><a href="{{ url('register') }}" class="nav-link">Create an Account</a></li>
                                     @endif
                                     <li class="nav-item postjob">
                                         <a href="{{ url('client/jobs/create') }}" class="nav-link auth-link">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
                                                 <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"/>
                                             </svg>
-                                            &nbsp;Mag-post ng Trabaho
+                                            &nbsp;Post a Job
                                         </a>
                                     </li>
                                     <li class="nav-item jobseeker">
@@ -95,7 +95,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                             </svg>
-                                            &nbsp;Maghanap ng Trabaho
+                                            &nbsp;Find a Job
                                         </a>
                                     </li>
                                     @if (auth()->check())
