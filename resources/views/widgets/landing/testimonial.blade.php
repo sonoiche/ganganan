@@ -3,7 +3,7 @@
     <div class="container">
         <!-- title start -->
         <div class="titleTop">
-            <div class="subtitle">Narito</div>
+            <div class="subtitle">What People Say</div>
             <h3>Success <span>Stories</span></h3>
         </div>
         <!-- title end -->

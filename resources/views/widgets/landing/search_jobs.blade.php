@@ -1,14 +1,14 @@
 <!-- Search start -->
 <div class="searchwrap">
     <div class="container" style="position: relative">
-        <h3>With this 'Link your talent, Find your client'.</h3>
-        <p>Maghanap ng Trabaho, Pagkakakitaan, at Mga Oportunidad sa Karera</p>
+        <h3>Link your talent. Find your client.</h3>
+        <p>Search for jobs, side gigs, and long-term career opportunities that match your strengths.</p>
         <div class="searchbar">
             <form action="{{ url('jobs') }}" method="GET">
                 <div class="row">
                     <div class="col-md-10">
                         <input type="text" name="search" class="form-control"
-                            placeholder="Ilagay ang Pamagat ng Trabaho" value="{{ request('search') }}" />
+                            placeholder="Enter a job title or keyword" value="{{ request('search') }}" />
                     </div>
                 {{-- <div class="col-md-3">
                     <select class="form-control">
@@ -25,7 +25,7 @@
                     </select>
                 </div> --}}
                     <div class="col-md-2">
-                        <input type="submit" class="btn" value="Maghanap" />
+                        <input type="submit" class="btn" value="Search" />
                     </div>
                 </div>
             </form>
@@ -34,10 +34,10 @@
         <div class="getstarted">
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <a href="{{ url('client/jobs/create') }}" class="w-full"><i class="fa fa-briefcase" aria-hidden="true"></i> I-post ang iyong Trabaho</a>
+                    <a href="{{ url('client/jobs/create') }}" class="w-full"><i class="fa fa-briefcase" aria-hidden="true"></i> Post Your Job</a>
                 </div>
                 <div class="col-12 col-md-6">
-                    <a href="{{ url('jobs') }}" class="w-full"><i class="fa fa-user-o" aria-hidden="true"></i> Maghanap ng Trabaho</a>
+                    <a href="{{ url('jobs') }}" class="w-full"><i class="fa fa-user-o" aria-hidden="true"></i> Find a Job</a>
                 </div>
             </div>
         </div>
