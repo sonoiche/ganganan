@@ -40,7 +40,7 @@
                                 <div class="jobinfo">
                                     <h3><a href="#.">{{ $job->job_title }}</a></h3>
                                     <div class="companyName"><a href="#.">{{ $job->employer->fullname ?? '' }}</a></div>
-                                    <div class="location"><label class="fulltime">Full Time</label> - <span>{{ $job->location }}</span></div>
+                                    <div class="location"><label class="fulltime">Short Term</label> - <span>{{ $job->location }}</span></div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -54,7 +54,7 @@
                                 
                             </div>
                         </div>
-                        <p>{{ $job->description }}</p>
+                        <p>{{ $job->job_description }}</p>
                     </li>
                     @empty
                     <li>
