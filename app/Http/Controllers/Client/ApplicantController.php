@@ -122,7 +122,7 @@ class ApplicantController extends Controller
     {
         $job_id         = $request['job_id'];
         $applicant_ids  = JobApplication::where('job_id', $job_id)->pluck('user_id');
-        $data['applicants'] = User::whereIn('id', $applicant_ids)->with(['user_skill'])->get();
+        $data['applicants'] = User::whereIn('id', $applicant_ids)->where('status', 'Active')->with(['user_skill'])->get();
         return view('client.applicants.create', $data);
     }
 
