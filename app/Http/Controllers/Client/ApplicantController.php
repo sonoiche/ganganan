@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client\Identification;
 use App\Models\Client\JobApplication;
 use App\Models\Client\UserSkill;
 use App\Models\JobOpening;
@@ -140,6 +141,7 @@ class ApplicantController extends Controller
     public function show(string $id)
     {
         $data['applicant'] = User::find($id);
+        $data['identifications'] = Identification::where('user_id', $id)->latest()->get();
         return view('client.applicants.show', $data);
     }
 

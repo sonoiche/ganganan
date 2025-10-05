@@ -48,6 +48,14 @@
                                 {{ $applicant->complete_address }}
                             </div>
                         </li>
+                        <li class="list-group-item d-flex justify-content-start align-items-start">
+                            <div class="ms-2" style="text-align: left">
+                                <div class="fw-bold">Identification File</div>
+                                @foreach ($identifications as $identification)
+                                <a href="{{ $identification->file_url }}" class="btn btn-outline-primary btn-sm" target="_blank"><i class="bx bxs-download" ></i> &nbsp;Download</a><br>
+                                @endforeach
+                            </div>
+                        </li>
                     </ul>
                     <div class="d-flex align-items-center justify-content-center" style="margin-top: 20px">
                         <a href="{{ url('client/applications', $applicant->id) }}?job_id={{ $_GET['job_id'] }}" class="btn btn-primary d-flex align-items-center me-4"><i class="bx bx-user-check bx-sm me-2"></i>Hire Applicant</a>
