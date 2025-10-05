@@ -45,14 +45,14 @@ class IdentificationController extends Controller
             $file  = $request->file('file');
             $photo = time().'.'.$file->getClientOriginalExtension();
 
-            $path = Storage::disk('public')->putFileAs(
+            $path = Storage::disk('cj')->putFileAs(
                 'ganganan/uploads/identifications',
                 $file,
                 $photo,
                 'public'
             );
             
-            $identification->file_url = Storage::disk('public')->url($path);
+            $identification->file_url = Storage::disk('cj')->url($path);
         }
 
         $identification->save();
