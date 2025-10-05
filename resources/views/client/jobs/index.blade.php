@@ -8,9 +8,11 @@
                     <div class="head-label text-center"><h5 class="card-title mb-0">My Job Openings</h5></div>
                     <div class="dt-action-buttons text-end pt-6 pt-md-0">
                         <div class="dt-buttons btn-group flex-wrap">
+                            @if (auth()->user()->status === 'Active')
                             <a href="{{ url('client/jobs/create') }}" class="btn btn-secondary create-new btn-primary">
                                 <span><i class="bx bx-plus bx-sm me-sm-2"></i> <span class="d-none d-sm-inline-block">Add New job</span></span>
                             </a>
+                            @endif
                         </div>
                     </div>
                 </div>

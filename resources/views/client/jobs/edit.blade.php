@@ -10,10 +10,12 @@
                         @csrf
                         @method('PUT')
                         @include('client.jobs.form')
+                        @if (auth()->user()->status === 'Active')
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">Save Changes</button>
                             <input type="hidden" name="id" value="{{ $job->id }}" />
                         </div>
+                        @endif
                     </form>
                 </div>
             </div>          

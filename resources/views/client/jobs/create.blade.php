@@ -9,9 +9,11 @@
                     <form action="{{ url('client/jobs') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @include('client.jobs.form')
+                        @if (auth()->user()->status === 'Active')
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">Add Job</button>
                         </div>
+                        @endif
                     </form>
                 </div>
             </div>          
