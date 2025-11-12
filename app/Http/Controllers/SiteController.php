@@ -17,10 +17,18 @@ class SiteController extends Controller
 
     public function store_otp(Request $request)
     {
-        $otp_password   = $request['otp_password'];
-        $user           = User::where('otp_password', $otp_password)->first();
+        $otp_password = trim((string) $request->input('otp_password'));
+        $user = auth()->user();
 
-        if(!isset($user->id)) {
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Please log in before entering your OTP.');
+        }
+
+        if ($otp_password === '') {
+            return redirect()->back()->with('error', 'Please enter the 6-digit OTP we sent to your email.');
+        }
+
+        if ((string) $user->otp_password !== $otp_password) {
             return redirect()->to('otp-password')->with('error', 'Invalid OTP password, please input the correct OTP.');
         }
 
