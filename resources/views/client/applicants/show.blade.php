@@ -10,6 +10,26 @@
                     </div>
                     <h5 class="mb-0 card-title">{{ $applicant->fullname }}</h5>
                     <span>{{ $applicant->city }}</span>
+                    @php
+                        $averageRating = $applicant->reviews_avg_rating ? number_format((float) $applicant->reviews_avg_rating, 1) : null;
+                        $worksDone = $applicant->works_done ?? 0;
+                    @endphp
+                    <div class="d-flex align-items-center justify-content-center gap-4 my-4 flex-wrap">
+                        <div class="text-center">
+                            <div class="fw-bold mb-2">Average Rating</div>
+                            @if ($averageRating)
+                                <input type="text" class="rating rating-input" data-size="xs" data-min="0" data-max="5" data-step="0.5" data-show-caption="false" data-show-clear="false" value="{{ $averageRating }}" readonly />
+                                <div class="small text-muted mt-1">{{ $averageRating }} / 5</div>
+                            @else
+                                <span class="text-muted">No ratings yet</span>
+                            @endif
+                        </div>
+                        <div class="text-center">
+                            <div class="fw-bold mb-2">Works Done</div>
+                            <div class="display-6">{{ $worksDone }}</div>
+                            <div class="small text-muted">Completed engagements</div>
+                        </div>
+                    </div>
                     <div class="d-flex align-items-center justify-content-center my-6 gap-2">
                         @if (isset($applicant->user_skill))
                             @foreach ($applicant->user_skill->array_skills as $skill)
@@ -75,8 +95,8 @@
                         <div class="flex-grow-1 ms-3">
                             <div>
                                 {{ $review->employer->fullname ?? '' }}
-                                <div class="d-flex" style="marign-top: 15px">
-                                    <input id="input-id" type="text" class="rating input-id" data-size="xs" data-min="0" data-max="5" data-step="1" data-show-caption="false" data-show-clear="false" value="{{ $review->rating }}" readonly style="width: 10px" />
+                                <div class="d-flex" style="margin-top: 15px">
+                                    <input id="input-id" type="text" class="rating rating-input" data-size="xs" data-min="0" data-max="5" data-step="1" data-show-caption="false" data-show-clear="false" value="{{ $review->rating }}" readonly style="width: 10px" />
                                     <div class="d-flex align-items-center" style="height: 25px;">
                                         <small>{{ $review->created_date }}</small>
                                     </div>
@@ -105,7 +125,7 @@
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
 <script>
 $(document).ready(function () {
-    $(".input-id").rating(); 
+    $(".rating-input").rating();
 });
 </script>
 @endpush

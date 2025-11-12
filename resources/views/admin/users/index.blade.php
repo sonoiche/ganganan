@@ -5,17 +5,20 @@
         <div class="card-datatable">
             <div class="dataTables_wrapper dt-bootstrap5 no-footer">
                 <div class="card-header flex-column flex-md-row pb-3">
-                    <div class="head-label"><h5 class="card-title mb-0">Verified Users</h5></div>
+                    <div class="head-label">
+                        <h5 class="card-title mb-1">Verified User Directory</h5>
+                        <p class="text-muted mb-0">Review all approved accounts, confirm their roles, and manage access when needed.</p>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="datatables-basic table border-top dataTable no-footer dtr-column" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th class="sorting text-center">#</th>
-                                <th class="sorting text-nowrap">User Name</th>
+                                <th class="sorting text-center">ID</th>
+                                <th class="sorting text-nowrap">Full Name</th>
                                 <th class="sorting text-nowrap">Email</th>
-                                <th class="sorting text-nowrap">Contact Number</th>
-                                <th class="sorting text-nowrap">Role</th>
+                                <th class="sorting text-nowrap">Phone</th>
+                                <th class="sorting text-nowrap">Account Role</th>
                                 <th class="sorting text-nowrap">Status</th>
                                 <th class="sorting_disabled text-nowrap text-center">Actions</th>
                             </tr>
@@ -31,18 +34,18 @@
                                     </div>
                                 </td>
                                 <td class="text-nowrap" style="padding-right: 50px">{{ $user->email }}</td>
-                                <td class="text-nowrap" style="padding-right: 50px">{{ $user->contact_number }}</td>
+                                <td class="text-nowrap" style="padding-right: 50px">{{ $user->contact_number ?: 'Not provided' }}</td>
                                 <td class="text-nowrap" style="padding-right: 50px">{{ $user->role }}</td>
                                 <td class="text-nowrap" style="padding-right: 50px">{{ $user->status }}</td>
                                 <td class="text-nowrap text-center" style="padding-right: 50px">
                                     @if ($user->id !== 1)
-                                    <a href="javascript:;" onclick="removeUser({{ $user->id }})" class="btn btn-icon item-edit text-danger"><i class="bx bx-trash bx-md"></i></a>
+                                    <a href="javascript:;" onclick="removeUser({{ $user->id }})" class="btn btn-icon item-edit text-danger" aria-label="Remove {{ $user->fullname }}"><i class="bx bx-trash bx-md"></i></a>
                                     @endif
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td class="text-center" colspan="7">No data available</td>
+                                <td class="text-center text-muted" colspan="7">No verified users found yet. Once accounts are approved, they will appear here.</td>
                             </tr>
                             @endforelse
                         </tbody>

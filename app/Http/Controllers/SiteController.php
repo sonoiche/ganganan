@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client\JobApplication;
 use App\Models\User;
 use App\Models\JobOpening;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -44,7 +45,8 @@ class SiteController extends Controller
             ->values();
 
         if ($searchTerm !== '') {
-            $jobs = JobOpening::where('status', 'Publish')
+            $jobs = JobOpening::with('employer')
+                ->where('status', 'Publish')
                 ->where('date_until', '>', $today)
                 ->where(function ($query) use ($searchTerm) {
                     $query->where('job_title', 'LIKE', "%{$searchTerm}%")
@@ -57,7 +59,7 @@ class SiteController extends Controller
             $applicantSkills = $user->user_skill->array_skills ?? [];
             $applicantSkills = is_array($applicantSkills) ? $applicantSkills : [];
 
-            $jobs = JobOpening::where('status', 'Publish')
+            $jobs = JobOpening::with('employer')
                 ->where('date_until', '>', $today)
                 ->when($user->city, function ($query) use ($user) {
                     $query->where('location', 'LIKE', '%'.$user->city.'%');
@@ -81,13 +83,13 @@ class SiteController extends Controller
                 ->values();
 
             if ($jobs->isEmpty()) {
-                $jobs = JobOpening::where('status', 'Publish')
+                $jobs = JobOpening::with('employer')
                     ->where('date_until', '>', $today)
                     ->orderBy('created_at', 'desc')
                     ->get();
             }
         } else {
-            $jobs = JobOpening::where('status', 'Publish')
+            $jobs = JobOpening::with('employer')
                 ->where('date_until', '>', $today)
                 ->orderBy('created_at', 'desc')
                 ->get();
@@ -100,9 +102,53 @@ class SiteController extends Controller
         ]);
     }
 
+    public function jobDetails($id)
+    {
+        $job = JobOpening::with('employer')->findOrFail($id);
+
+        $skillIds = $job->array_skills ?? [];
+        $skills = collect();
+        if (!empty($skillIds)) {
+            $skills = Skill::whereIn('id', $skillIds)->orderBy('name')->pluck('name');
+        }
+
+        $otherJobs = JobOpening::with('employer')
+            ->where('user_id', $job->user_id)
+            ->where('id', '!=', $job->id)
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('site.jobs.show', [
+            'job' => $job,
+            'skills' => $skills,
+            'otherJobs' => $otherJobs,
+        ]);
+    }
+
+    public function companyProfile($id)
+    {
+        $company = User::findOrFail($id);
+
+        $jobOpenings = JobOpening::with('employer')
+            ->where('user_id', $company->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('site.companies.show', [
+            'company' => $company,
+            'jobOpenings' => $jobOpenings,
+            'totalJobs' => $jobOpenings->count(),
+        ]);
+    }
+
     public function apply($id)
     {
-        $job = JobOpening::find($id);
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        $job = JobOpening::findOrFail($id);
 
         $application = new JobApplication();
         $application->user_id = auth()->user()->id;

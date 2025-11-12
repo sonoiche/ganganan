@@ -5,7 +5,10 @@
         <div class="card-datatable">
             <div class="dataTables_wrapper dt-bootstrap5 no-footer">
                 <div class="card-header d-flex justify-content-between flex-md-row pb-3">
-                    <div class="head-label text-center"><h5 class="card-title mb-0">My Job Openings</h5></div>
+                    <div class="head-label text-center text-md-start">
+                        <h5 class="card-title mb-1">My Active Job Openings</h5>
+                        <p class="text-muted mb-0">Monitor published postings, track candidates, and update listings in one place.</p>
+                    </div>
                     <div class="dt-action-buttons text-end pt-6 pt-md-0">
                         <div class="dt-buttons btn-group flex-wrap">
                             @if (auth()->user()->status === 'Active')
@@ -20,15 +23,15 @@
                     <table class="datatables-basic table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 1391px;">
                         <thead>
                             <tr>
-                                <th class="text-nowrap sorting text-center">#</th>
-                                <th class="text-nowrap sorting">Date Created</th>
-                                <th class="text-nowrap sorting">Job Order</th>
-                                <th class="text-nowrap sorting">Title</th>
-                                <th class="text-nowrap sorting text-center">Needed</th>
-                                <th class="text-nowrap sorting text-center">Applied</th>
-                                <th class="text-nowrap sorting">Salary</th>
-                                <th class="text-nowrap sorting text-center">Status</th>
-                                <th class="text-nowrap sorting_disabled text-center">Actions</th>
+                                <th class="text-nowrap sorting text-center">ID</th>
+                                <th class="text-nowrap sorting">Created On</th>
+                                <th class="text-nowrap sorting">Job Order #</th>
+                                <th class="text-nowrap sorting">Position Title</th>
+                                <th class="text-nowrap sorting text-center">Workers Needed</th>
+                                <th class="text-nowrap sorting text-center">Applicants</th>
+                                <th class="text-nowrap sorting">Pay Rate</th>
+                                <th class="text-nowrap sorting text-center">Publishing Status</th>
+                                <th class="text-nowrap sorting_disabled text-center">Quick Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,16 +44,16 @@
                                 <td class="text-nowrap text-center" style="padding-right: 50px">{{ $job->workers_need }}</td>
                                 <td class="text-nowrap text-center" style="padding-right: 50px">{!! (isset($job->applications) && count($job->applications) > 0) ? 
                                 '<a href="'.url('client/jobs/job-applied').'?job_id='.$job->id.'"><strong>' .count($job->applications). '</strong></a>' : 0 !!}</td>
-                                <td class="text-nowrap" style="padding-right: 50px">{{ 'P'.$job->salary }}</td>
+                                <td class="text-nowrap" style="padding-right: 50px">{{ $job->salary ? '₱' . number_format((float) $job->salary, 2) : 'Not specified' }} {{ $job->salary_rate ? '/ ' . $job->salary_rate : '' }}</td>
                                 <td class="text-nowrap text-center" style="padding-right: 50px">{{ $job->status }}</td>
                                 <td class="text-nowrap text-center" style="padding-right: 50px">
-                                    <a href="{{ url('client/jobs', $job->id) }}/edit" class="btn btn-icon item-edit text-success"><i class="bx bx-edit bx-md"></i></a>
-                                    <a href="javascript:;" onclick="removeJob({{ $job->id }})" class="btn btn-icon item-edit text-danger"><i class="bx bx-trash bx-md"></i></a>
+                                    <a href="{{ url('client/jobs', $job->id) }}/edit" class="btn btn-icon item-edit text-success" aria-label="Edit job {{ $job->job_title }}"><i class="bx bx-edit bx-md"></i></a>
+                                    <a href="javascript:;" onclick="removeJob({{ $job->id }})" class="btn btn-icon item-edit text-danger" aria-label="Delete job {{ $job->job_title }}"><i class="bx bx-trash bx-md"></i></a>
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td class="text-center" colspan="8">No jobs available</td>
+                                <td class="text-center text-muted" colspan="9">You haven’t posted any jobs yet. Create a new job opening to start receiving applications.</td>
                             </tr>
                             @endforelse
                         </tbody>

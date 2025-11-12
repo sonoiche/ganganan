@@ -4,8 +4,9 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <h5 class="card-header">Update Job Information</h5>
+                <h5 class="card-header">Update Job Posting</h5>
                 <div class="card-body">
+                    <p class="text-muted mb-4">Adjust job details, timing, or requirements. Changes take effect immediately for applicants.</p>
                     <form action="{{ url('client/jobs', $job->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')

@@ -140,8 +140,18 @@ class ApplicantController extends Controller
      */
     public function show(string $id)
     {
-        $data['applicant'] = User::find($id);
+        $data['applicant'] = User::with([
+                'user_skill',
+                'reviews.employer',
+            ])
+            ->withAvg('reviews', 'rating')
+            ->withCount(['application as works_done' => function ($query) {
+                $query->where('status', 'Hired');
+            }])
+            ->findOrFail($id);
+
         $data['identifications'] = Identification::where('user_id', $id)->latest()->get();
+
         return view('client.applicants.show', $data);
     }
 

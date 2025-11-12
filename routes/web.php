@@ -35,6 +35,8 @@ Route::get('otp-password', [SiteController::class, 'otp']);
 Route::post('otp-password', [SiteController::class, 'store_otp']);
 
 Route::get('jobs', [SiteController::class, 'jobs']);
+Route::get('jobs/{id}/details', [SiteController::class, 'jobDetails'])->name('jobs.details');
+Route::get('companies/{id}', [SiteController::class, 'companyProfile'])->name('companies.show');
 Route::get('jobs/{id}', [SiteController::class, 'apply']);
 
 Route::prefix('admin')->middleware(['auth:web'])->group( function() {

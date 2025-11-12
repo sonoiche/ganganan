@@ -55,11 +55,19 @@ class PaymentController extends Controller
             'public'
         );
 
+        $baseAmount = $subscription->amount ?? 0;
+        if ($baseAmount <= 0) {
+            $baseAmount = 50;
+        }
+
+        $additionalFee = round($baseAmount * 0.06, 2);
+        $totalAmount = round($baseAmount + $additionalFee, 2);
+
         $payment = new Payment();
         $payment->user_id           = $user_id;
         $payment->subscription_id   = $subscription->id;
         $payment->proof             = Storage::disk('s3')->url($path);
-        $payment->amount            = 50;
+        $payment->amount            = $totalAmount;
         $payment->status            = 'Pending';
         $payment->save();
 

@@ -4,14 +4,15 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <h5 class="card-header">Add New Job</h5>
+                <h5 class="card-header">Create a New Job Posting</h5>
                 <div class="card-body">
+                    <p class="text-muted mb-4">Fill out the details below to publish a short-term opportunity. Clear information helps seekers decide quickly.</p>
                     <form action="{{ url('client/jobs') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @include('client.jobs.form')
                         @if (auth()->user()->status === 'Active')
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary" type="submit">Add Job</button>
+                            <button class="btn btn-primary" type="submit">Publish Job Posting</button>
                         </div>
                         @endif
                     </form>
