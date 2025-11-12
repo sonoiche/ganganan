@@ -34,8 +34,11 @@
                                 <td class="text-nowrap" style="padding-right: 50px">{{ $user->contact_number }}</td>
                                 <td class="text-nowrap" style="padding-right: 50px">{{ $user->role }}</td>
                                 <td class="text-nowrap" style="padding-right: 50px">{{ $user->status }}</td>
-                                <td class="text-nowrap  style="padding-right: 32px"text-center">
+                                <td class="text-nowrap text-center" style="padding-right: 32px">
                                     @if ($user->id !== 1)
+                                    <a href="{{ route('admin.user-verify.identifications.download', $user->id) }}" class="btn btn-icon item-edit text-info" aria-label="Download identification files for {{ $user->fullname }}">
+                                        <i class="bx bx-download bx-md"></i>
+                                    </a>
                                     <a href="javascript:;" onclick="activateUser({{ $user->id }})" class="btn btn-icon item-edit text-success"><i class="bx bx-user-check bx-md"></i></a>
                                     <a href="javascript:;" onclick="removeUser({{ $user->id }})" class="btn btn-icon item-edit text-danger"><i class="bx bx-trash bx-md"></i></a>
                                     @endif

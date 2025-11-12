@@ -40,6 +40,7 @@ Route::get('companies/{id}', [SiteController::class, 'companyProfile'])->name('c
 Route::get('jobs/{id}', [SiteController::class, 'apply']);
 
 Route::prefix('admin')->middleware(['auth:web'])->group( function() {
+    Route::get('user-verify/{id}/identifications/download', [VerifyController::class, 'downloadIdentifications'])->name('admin.user-verify.identifications.download');
     Route::resource('user-verify', VerifyController::class);
     Route::resource('users', UserController::class);
     Route::resource('skills', SkillController::class);
