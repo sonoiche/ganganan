@@ -15,7 +15,7 @@
                                 <h2 class="mb-1">{{ $company->fullname }}</h2>
                                 <div class="text-muted mb-2">Joined SkillLink on {{ $company->created_date }}</div>
                                 <p class="text-secondary small mb-3">Learn more about this hiring partner, how to reach them, and the opportunities they currently offer.</p>
-                                <div class="mt-2">
+                                <div class="mt-2 company-detail-list" style="line-height: 1.8;">
                                     <div><strong>Primary Contact Email:</strong> {{ $company->email }}</div>
                                     <div><strong>Phone Number:</strong> {{ $company->contact_number ?? 'Not provided' }}</div>
                                     <div><strong>Business Address:</strong> {{ $company->complete_address }}</div>
@@ -32,9 +32,9 @@
                         @if ($jobOpenings->isEmpty())
                             <p class="mb-0 text-secondary">This company has not posted any jobs yet. Check back soon or explore other employers.</p>
                         @else
-                            <ul class="list-group list-group-flush">
+                            <ul class="list-group list-group-flush company-openings-list">
                                 @foreach ($jobOpenings as $job)
-                                <li class="list-group-item">
+                                <li class="list-group-item" style="line-height: 1.8;">
                                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
                                         <div>
                                             <div class="fw-semibold">{{ $job->job_title }}</div>

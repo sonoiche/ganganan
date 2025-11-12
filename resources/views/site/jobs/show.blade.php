@@ -74,7 +74,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h4 class="mb-3">About the Hiring Company</h4>
-                        <div class="d-flex flex-column flex-md-row align-items-md-center gap-3">
+                        <div class="d-flex flex-column flex-md-row align-items-md-center gap-3" style="line-height: 1.8;">
                             <div class="jobimg flex-shrink-0">
                                 <img src="{{ $job->employer->display_photo }}" alt="{{ $job->employer->fullname }}" style="max-width: 80px; border-radius: 50%" />
                             </div>
