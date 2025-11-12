@@ -19,6 +19,7 @@ class VerifyController extends Controller
     {
         $data['users'] = User::where('status', 'Inactive')
             ->where('role', 'User')
+            ->withCount('identifications')
             ->latest()
             ->get();
 

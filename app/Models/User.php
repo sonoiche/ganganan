@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Models\Client\JobApplication;
 use App\Models\Client\Review;
+use App\Models\Client\Identification;
 use Carbon\Carbon;
 use App\Models\Client\UserSkill;
 use App\Models\Client\Subscription;
@@ -146,5 +147,10 @@ class User extends Authenticatable
     public function reviews()
     {
         return $this->hasMany(Review::class, 'user_id');
+    }
+
+    public function identifications()
+    {
+        return $this->hasMany(Identification::class, 'user_id');
     }
 }
