@@ -38,6 +38,12 @@ class JobController extends Controller
             return redirect()->to('home');
         }
 
+        // Check if user has active subscription
+        if (!auth()->user()->hasActiveSubscription()) {
+            return redirect()->to('client/subscription/create')
+                ->with('error', 'You must have an active subscription to post jobs. Please subscribe first.');
+        }
+
         $data['skills'] = Skill::orderBy('name')->get();
         return view('client.jobs.create', $data);
     }
@@ -47,6 +53,12 @@ class JobController extends Controller
      */
     public function store(JobRequest $request)
     {
+        // Check if user has active subscription
+        if (!auth()->user()->hasActiveSubscription()) {
+            return redirect()->to('client/subscription/create')
+                ->with('error', 'You must have an active subscription to post jobs. Please subscribe first.');
+        }
+
         $content_skills = '';
         $skills = $request['skills'] ?? [];
         foreach ($skills as $skill) {

@@ -153,4 +153,34 @@ class User extends Authenticatable
     {
         return $this->hasMany(Identification::class, 'user_id');
     }
+
+    /**
+     * Check if user has an active subscription
+     * Subscription must be Paid and not expired
+     */
+    public function hasActiveSubscription()
+    {
+        $subscription = $this->subscription;
+        if (!$subscription) {
+            return false;
+        }
+
+        $today = Carbon::now()->format('Y-m-d');
+        return $subscription->status === 'Paid' && $subscription->valid_until >= $today;
+    }
+
+    /**
+     * Get days until subscription expires (negative if expired)
+     */
+    public function getDaysUntilSubscriptionExpires()
+    {
+        $subscription = $this->subscription;
+        if (!$subscription) {
+            return null;
+        }
+
+        $today = Carbon::now();
+        $validUntil = Carbon::parse($subscription->valid_until);
+        return $today->diffInDays($validUntil, false); // false means it can return negative
+    }
 }

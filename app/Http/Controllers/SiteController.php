@@ -44,8 +44,15 @@ class SiteController extends Controller
         $today = now()->format('Y-m-d');
         $searchTerm = trim((string) $request->query('search', ''));
 
+        // Get all employers with active subscriptions
+        $activeSubscriptionUserIds = \App\Models\User::whereHas('subscription', function($query) use ($today) {
+            $query->where('status', 'Paid')
+                  ->where('valid_until', '>=', $today);
+        })->pluck('id');
+
         $jobTitles = JobOpening::where('status', 'Publish')
             ->where('date_until', '>', $today)
+            ->whereIn('user_id', $activeSubscriptionUserIds)
             ->orderBy('job_title')
             ->pluck('job_title')
             ->filter()
@@ -56,6 +63,7 @@ class SiteController extends Controller
             $jobs = JobOpening::with('employer')
                 ->where('status', 'Publish')
                 ->where('date_until', '>', $today)
+                ->whereIn('user_id', $activeSubscriptionUserIds)
                 ->where(function ($query) use ($searchTerm) {
                     $query->where('job_title', 'LIKE', "%{$searchTerm}%")
                         ->orWhere('location', 'LIKE', "%{$searchTerm}%");
@@ -69,6 +77,7 @@ class SiteController extends Controller
 
             $jobs = JobOpening::with('employer')
                 ->where('date_until', '>', $today)
+                ->whereIn('user_id', $activeSubscriptionUserIds)
                 ->get()
                 ->map(function ($job) use ($applicantSkills) {
                     $jobSkills = $job->array_skills;
@@ -90,12 +99,14 @@ class SiteController extends Controller
             if ($jobs->isEmpty()) {
                 $jobs = JobOpening::with('employer')
                     ->where('date_until', '>', $today)
+                    ->whereIn('user_id', $activeSubscriptionUserIds)
                     ->orderBy('created_at', 'desc')
                     ->get();
             }
         } else {
             $jobs = JobOpening::with('employer')
                 ->where('date_until', '>', $today)
+                ->whereIn('user_id', $activeSubscriptionUserIds)
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
@@ -117,9 +128,17 @@ class SiteController extends Controller
             $skills = Skill::whereIn('id', $skillIds)->orderBy('name')->pluck('name');
         }
 
+        // Only show other jobs from employers with active subscriptions
+        $today = now()->format('Y-m-d');
+        $activeSubscriptionUserIds = \App\Models\User::whereHas('subscription', function($query) use ($today) {
+            $query->where('status', 'Paid')
+                  ->where('valid_until', '>=', $today);
+        })->pluck('id');
+
         $otherJobs = JobOpening::with('employer')
             ->where('user_id', $job->user_id)
             ->where('id', '!=', $job->id)
+            ->whereIn('user_id', $activeSubscriptionUserIds)
             ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();
@@ -135,8 +154,16 @@ class SiteController extends Controller
     {
         $company = User::findOrFail($id);
 
+        // Only show job openings from employers with active subscriptions
+        $today = now()->format('Y-m-d');
+        $activeSubscriptionUserIds = \App\Models\User::whereHas('subscription', function($query) use ($today) {
+            $query->where('status', 'Paid')
+                  ->where('valid_until', '>=', $today);
+        })->pluck('id');
+
         $jobOpenings = JobOpening::with('employer')
             ->where('user_id', $company->id)
+            ->whereIn('user_id', $activeSubscriptionUserIds)
             ->orderBy('created_at', 'desc')
             ->get();
 

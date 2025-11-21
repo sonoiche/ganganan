@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Models\Client\Subscription;
 
 class RegisterController extends Controller
 {
@@ -89,6 +92,16 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
+        // Create initial subscription on registration (30 days, Unpaid status)
+        $validUntil = Carbon::now()->addDays(30)->format('Y-m-d');
+        $subscription = new Subscription();
+        $subscription->user_id = $user->id;
+        $subscription->invoice_number = strtoupper(Str::random(10));
+        $subscription->amount = 50;
+        $subscription->status = 'Unpaid';
+        $subscription->valid_until = $validUntil;
+        $subscription->save();
+
         Mail::to($user->email)->send(new SendOtpMail($user));
         return redirect()->to('otp-password');
     }

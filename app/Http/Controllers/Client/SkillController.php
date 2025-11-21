@@ -34,6 +34,12 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
+        // Check if user has active subscription
+        if (!auth()->user()->hasActiveSubscription()) {
+            return redirect()->to('client/subscription/create')
+                ->with('error', 'You must have an active subscription to add skills. Please subscribe first.');
+        }
+
         $content_skills = '';
         $skills = $request['skills'];
         foreach ($skills as $skill) {

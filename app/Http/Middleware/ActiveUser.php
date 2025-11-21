@@ -20,9 +20,27 @@ class ActiveUser
             return redirect()->to('otp-password')->with('error', 'We sent an OTP to your email, please check and put it here.');
         }
 
-        $today = Carbon::now()->format('Y-m-d');
-        if (auth()->check() && auth()->user()->role == 'Client' && auth()->user()->subscription->valid_until <= $today) {
-            return redirect()->to('/client/subscription/create')->with('error', 'Pay the monthy subscription to use the services.');
+        // Check subscription for users (not admins)
+        // Allow access to subscription and payment pages even without active subscription
+        $allowedPaths = ['client/subscription', 'client/payments'];
+        $currentPath = $request->path();
+        $isSubscriptionRelated = false;
+        
+        foreach ($allowedPaths as $path) {
+            if (strpos($currentPath, $path) === 0) {
+                $isSubscriptionRelated = true;
+                break;
+            }
+        }
+
+        if (auth()->check() && auth()->user()->role == 'User' && !$isSubscriptionRelated) {
+            $user = auth()->user();
+            $subscription = $user->subscription;
+            
+            // Check if subscription exists and is active
+            if (!$subscription || !$user->hasActiveSubscription()) {
+                return redirect()->to('/client/subscription/create')->with('error', 'You must have an active subscription to access this feature. Please subscribe first.');
+            }
         }
 
         return $next($request);

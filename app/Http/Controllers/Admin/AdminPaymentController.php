@@ -50,8 +50,8 @@ class AdminPaymentController extends Controller
         $subscribe->status = 'Paid';
         $subscribe->save();
 
-        // generate new invoice for the next month
-        $valid_until    = Carbon::now()->addMonth()->format('Y-m-d');
+        // generate new invoice for the next 30 days (not calendar month)
+        $valid_until    = Carbon::parse($subscribe->valid_until)->addDays(30)->format('Y-m-d');
         $subscription   = new Subscription();
         $subscription->status           = 'Unpaid';
         $subscription->invoice_number   = strtoupper(Str::random(10));

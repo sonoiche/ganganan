@@ -45,6 +45,17 @@ class HomeController extends Controller
         $data['hiredApplicants']    = JobApplication::where('employer_id', $user_id)->whereIn('status', ['Hired','Completed'])->count();
         $data['pendingApplicants']  = JobApplication::where('employer_id', $user_id)->where('status', 'Applied')->count();
 
+        // Check subscription status for warning message
+        $user = auth()->user();
+        if ($user->role == 'User' && $user->subscription) {
+            $daysUntilExpiry = $user->getDaysUntilSubscriptionExpires();
+            if ($daysUntilExpiry !== null && $daysUntilExpiry <= 3 && $daysUntilExpiry >= 0) {
+                $data['subscriptionWarning'] = "Your subscription will expire in {$daysUntilExpiry} day(s). Please renew your subscription to continue posting jobs and adding skills.";
+            } elseif ($daysUntilExpiry !== null && $daysUntilExpiry < 0) {
+                $data['subscriptionWarning'] = "Your subscription has expired. Please renew your subscription to continue posting jobs and adding skills.";
+            }
+        }
+
         return view('home', $data);
     }
 
