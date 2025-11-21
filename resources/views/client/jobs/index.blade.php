@@ -42,13 +42,15 @@
                                 <td class="text-nowrap" style="padding-right: 50px">{{ $job->job_order_number }}</td>
                                 <td class="text-nowrap" style="padding-right: 50px">{{ $job->job_title }}</td>
                                 <td class="text-nowrap text-center" style="padding-right: 50px">{{ $job->workers_need }}</td>
-                                <td class="text-nowrap text-center" style="padding-right: 50px">{!! (isset($job->applications) && count($job->applications) > 0) ? 
-                                '<a href="'.url('client/jobs/job-applied').'?job_id='.$job->id.'"><strong>' .count($job->applications). '</strong></a>' : 0 !!}</td>
+                                <td class="text-nowrap text-center" style="padding-right: 50px">{{ (isset($job->applications) && count($job->applications) > 0) ? count($job->applications) : 0 }}</td>
                                 <td class="text-nowrap" style="padding-right: 50px">{{ $job->salary ? '₱' . number_format((float) $job->salary, 2) : 'Not specified' }} {{ $job->salary_rate ? '/ ' . $job->salary_rate : '' }}</td>
                                 <td class="text-nowrap text-center" style="padding-right: 50px">{{ $job->status }}</td>
                                 <td class="text-nowrap text-center" style="padding-right: 50px">
+                                    @if (isset($job->applications) && count($job->applications) > 0)
+                                    <a href="{{ url('client/jobs/job-applied') }}?job_id={{ $job->id }}" class="btn btn-icon item-edit text-info" aria-label="View applicants for {{ $job->job_title }}"><i class="bx bx-show bx-md"></i></a>
+                                    @endif
                                     <a href="{{ url('client/jobs', $job->id) }}/edit" class="btn btn-icon item-edit text-success" aria-label="Edit job {{ $job->job_title }}"><i class="bx bx-edit bx-md"></i></a>
-                                    <a href="javascript:;" onclick="removeJob({{ $job->id }})" class="btn btn-icon item-edit text-danger" aria-label="Delete job {{ $job->job_title }}"><i class="bx bx-trash bx-md"></i></a>
+                                    <a href="javascript:;" class="btn btn-icon item-edit text-danger remove-job-btn" data-job-id="{{ $job->id }}" aria-label="Delete job {{ $job->job_title }}"><i class="bx bx-trash bx-md"></i></a>
                                 </td>
                             </tr>
                             @empty
@@ -67,17 +69,20 @@
 
 @push('scripts')
 <script>
-function removeJob(id) {
-    if(confirm('Are you sure you want to delete this job?')) {
-        $.ajax({
-            type: "DELETE",
-            url: "{{ url('client/jobs') }}/" + id,
-            dataType: "json",
-            success: function (response) {
-                location.reload();
-            }
-        });
-    }
-}
+$(document).ready(function() {
+    $('.remove-job-btn').on('click', function() {
+        var jobId = $(this).data('job-id');
+        if(confirm('Are you sure you want to delete this job?')) {
+            $.ajax({
+                type: "DELETE",
+                url: "{{ url('client/jobs') }}/" + jobId,
+                dataType: "json",
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        }
+    });
+});
 </script>
 @endpush
