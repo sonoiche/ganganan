@@ -56,12 +56,19 @@ class AdminPaymentController extends Controller
             $user->save();
         }
 
+        // Get the latest subscription (with the furthest valid_until date) before updating
+        $latestSubscription = Subscription::where('user_id', $subscribe->user_id)
+            ->orderBy('valid_until', 'desc')
+            ->first();
+
         // Update all existing subscriptions for this user to Paid status
         Subscription::where('user_id', $subscribe->user_id)
             ->update(['status' => 'Paid']);
 
         // generate new invoice for the next 30 days (not calendar month)
-        $valid_until    = Carbon::parse($subscribe->valid_until)->addDays(30)->format('Y-m-d');
+        // Use the latest subscription's valid_until date, or current date if no subscription exists
+        $baseDate = $latestSubscription ? Carbon::parse($latestSubscription->valid_until) : Carbon::now();
+        $valid_until = $baseDate->addDays(30)->format('Y-m-d');
         $subscription   = new Subscription();
         $subscription->status           = 'Unpaid';
         $subscription->invoice_number   = strtoupper(Str::random(10));
