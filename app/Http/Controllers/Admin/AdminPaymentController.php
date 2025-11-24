@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Client\Payment;
 use App\Models\Client\Subscription;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 
 class AdminPaymentController extends Controller
@@ -45,10 +46,19 @@ class AdminPaymentController extends Controller
         $payment->status = 'Paid';
         $payment->save();
 
-        // update current subscription
-        $subscribe      = Subscription::find($payment->subscription_id);
-        $subscribe->status = 'Paid';
-        $subscribe->save();
+        // Get the subscription and user
+        $subscribe = Subscription::find($payment->subscription_id);
+        $user = User::find($subscribe->user_id);
+        
+        // Update user status from Inactive to Active if currently Inactive
+        if ($user && $user->status === 'Inactive') {
+            $user->status = 'Active';
+            $user->save();
+        }
+
+        // Update all existing subscriptions for this user to Paid status
+        Subscription::where('user_id', $subscribe->user_id)
+            ->update(['status' => 'Paid']);
 
         // generate new invoice for the next 30 days (not calendar month)
         $valid_until    = Carbon::parse($subscribe->valid_until)->addDays(30)->format('Y-m-d');
