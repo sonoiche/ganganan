@@ -48,7 +48,7 @@ class PaymentController extends Controller
         $file  = $request->file('photo');
         $photo = time().'.'.$file->getClientOriginalExtension();
 
-        $path = Storage::disk('s3')->putFileAs(
+        $path = Storage::disk('cj')->putFileAs(
             'ganganan/uploads/subscriptions',
             $file,
             $photo,
@@ -66,7 +66,7 @@ class PaymentController extends Controller
         $payment = new Payment();
         $payment->user_id           = $user_id;
         $payment->subscription_id   = $subscription->id;
-        $payment->proof             = Storage::disk('s3')->url($path);
+        $payment->proof             = Storage::disk('cj')->url($path);
         $payment->amount            = $totalAmount;
         $payment->status            = 'Pending';
         $payment->save();

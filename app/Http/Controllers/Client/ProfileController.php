@@ -77,14 +77,14 @@ class ProfileController extends Controller
             $file  = $request->file('photo');
             $photo = time().'.'.$file->getClientOriginalExtension();
 
-            $path = Storage::disk('s3')->putFileAs(
+            $path = Storage::disk('cj')->putFileAs(
                 'ganganan/uploads/users',
                 $file,
                 $photo,
                 'public'
             );
             
-            $user->photo = Storage::disk('s3')->url($path);
+            $user->photo = Storage::disk('cj')->url($path);
         }
 
         $user->save();

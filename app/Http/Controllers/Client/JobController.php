@@ -84,14 +84,14 @@ class JobController extends Controller
             $file  = $request->file('photo');
             $photo = time().'.'.$file->getClientOriginalExtension();
 
-            $path = Storage::disk('s3')->putFileAs(
+            $path = Storage::disk('cj')->putFileAs(
                 'ganganan/uploads/jobs',
                 $file,
                 $photo,
                 'public'
             );
             
-            $job->photo = Storage::disk('s3')->url($path);
+            $job->photo = Storage::disk('cj')->url($path);
         }
 
         $job->save();
@@ -149,14 +149,14 @@ class JobController extends Controller
             $file  = $request->file('photo');
             $photo = time().'.'.$file->getClientOriginalExtension();
 
-            $path = Storage::disk('s3')->putFileAs(
+            $path = Storage::disk('cj')->putFileAs(
                 'ganganan/uploads/jobs',
                 $file,
                 $photo,
                 'public'
             );
             
-            $job->photo = Storage::disk('s3')->url($path);
+            $job->photo = Storage::disk('cj')->url($path);
         }
 
         $job->save();
