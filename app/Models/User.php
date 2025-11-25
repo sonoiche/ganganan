@@ -160,13 +160,18 @@ class User extends Authenticatable
      */
     public function hasActiveSubscription()
     {
-        $subscription = $this->subscription;
+        // Get the latest subscription with status "Paid"
+        $subscription = Subscription::where('user_id', $this->id)
+            ->where('status', 'Paid')
+            ->orderBy('valid_until', 'desc')
+            ->first();
+            
         if (!$subscription) {
             return false;
         }
 
         $today = Carbon::now()->format('Y-m-d');
-        return $subscription->status === 'Paid' && $subscription->valid_until >= $today;
+        return $subscription->valid_until >= $today;
     }
 
     /**
@@ -174,7 +179,12 @@ class User extends Authenticatable
      */
     public function getDaysUntilSubscriptionExpires()
     {
-        $subscription = $this->subscription;
+        // Get the latest subscription with status "Paid"
+        $subscription = Subscription::where('user_id', $this->id)
+            ->where('status', 'Paid')
+            ->orderBy('valid_until', 'desc')
+            ->first();
+            
         if (!$subscription) {
             return null;
         }
