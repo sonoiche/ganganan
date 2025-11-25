@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client\JobApplication;
+use App\Models\Client\Subscription;
 use App\Models\User;
 use App\Models\JobOpening;
 use App\Models\Skill;
@@ -44,11 +45,12 @@ class SiteController extends Controller
         $today = now()->format('Y-m-d');
         $searchTerm = trim((string) $request->query('search', ''));
 
-        // Get all employers with active subscriptions
-        return $activeSubscriptionUserIds = \App\Models\User::whereHas('subscription', function($query) use ($today) {
-            $query->where('status', 'Paid')
-                  ->where('valid_until', '>=', $today);
-        })->pluck('id');
+        // Get all employers with active subscriptions (latest subscription with status "Paid" and valid_until >= today)
+        // Get distinct user_ids who have at least one active subscription
+        $activeSubscriptionUserIds = Subscription::where('status', 'Paid')
+            ->where('valid_until', '>=', $today)
+            ->distinct()
+            ->pluck('user_id');
 
         $jobTitles = JobOpening::where('status', 'Publish')
             ->where('date_until', '>', $today)
@@ -130,10 +132,10 @@ class SiteController extends Controller
 
         // Only show other jobs from employers with active subscriptions
         $today = now()->format('Y-m-d');
-        $activeSubscriptionUserIds = \App\Models\User::whereHas('subscription', function($query) use ($today) {
-            $query->where('status', 'Paid')
-                  ->where('valid_until', '>=', $today);
-        })->pluck('id');
+        $activeSubscriptionUserIds = Subscription::where('status', 'Paid')
+            ->where('valid_until', '>=', $today)
+            ->distinct()
+            ->pluck('user_id');
 
         $otherJobs = JobOpening::with('employer')
             ->where('user_id', $job->user_id)
@@ -156,10 +158,10 @@ class SiteController extends Controller
 
         // Only show job openings from employers with active subscriptions
         $today = now()->format('Y-m-d');
-        $activeSubscriptionUserIds = \App\Models\User::whereHas('subscription', function($query) use ($today) {
-            $query->where('status', 'Paid')
-                  ->where('valid_until', '>=', $today);
-        })->pluck('id');
+        $activeSubscriptionUserIds = Subscription::where('status', 'Paid')
+            ->where('valid_until', '>=', $today)
+            ->distinct()
+            ->pluck('user_id');
 
         $jobOpenings = JobOpening::with('employer')
             ->where('user_id', $company->id)
