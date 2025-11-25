@@ -29,7 +29,6 @@ class JobRequest extends FormRequest
             'status'            => 'required',
             'salary'            => 'required',
             'salary_rate'       => 'required',
-            'date_until'        => 'required',
             'location'          => ['nullable', Rule::in(config('pangasinan.towns'))],
             'photo'             => 'nullable|sometimes|image',
         ];
