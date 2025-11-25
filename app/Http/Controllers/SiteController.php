@@ -45,7 +45,7 @@ class SiteController extends Controller
         $searchTerm = trim((string) $request->query('search', ''));
 
         // Get all employers with active subscriptions
-        $activeSubscriptionUserIds = \App\Models\User::whereHas('subscription', function($query) use ($today) {
+        return $activeSubscriptionUserIds = \App\Models\User::whereHas('subscription', function($query) use ($today) {
             $query->where('status', 'Paid')
                   ->where('valid_until', '>=', $today);
         })->pluck('id');
